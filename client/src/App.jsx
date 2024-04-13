@@ -82,7 +82,7 @@ const App = () => {
   };
  
   const { strokeWidth, lineCount, angle, startColor, endColor, theme } = svg;
-  const svgBackgroundColor = svg.theme === 'dark' ? '#1C1D1E' : '#F7F7F7';
+  const svgBackgroundColor = svg.theme === 'dark' ? '#1C1D1E' : '#F2F2F2';
   const textColor = svg.theme === 'dark' ? '#F7F7F7' : '#1C1D1E';
   const buttonTextColor = svg.theme === 'dark' ? '#1C1D1E' : '#F7F7F7';
 
@@ -127,28 +127,42 @@ const App = () => {
 
   return (
      <div className="App" style={{ color: textColor }}>
-      <Controller
-        angle={angle}
-        strokeWidth={strokeWidth}
-        lineCount={lineCount}
-        startColor={startColor}
-        endColor={endColor}
-        onSliderChange={handleSliderChange}
-        onColorChange={onColorChange}
-      />
-      <button onClick={saveArtworkToBackend} className='saveArtworkButton' style={{ color: buttonTextColor, backgroundColor: textColor }}>
-        Save Artwork
-      </button>
-      <LinePatternGenerator
-        strokeWidth={strokeWidth}
-        startColor={startColor}
-        endColor={endColor}
-        svgBackgroundColor={svgBackgroundColor}
-        starsAttributes={starsAttributes}
-      />
-      <button onClick={switchTheme} className='switchThemeButton' style={{ color: buttonTextColor, backgroundColor: textColor }}>
-        Switch Theme
-      </button>
+      <div className='header'>
+        <h1>Falling Stars Pattern Generator</h1>
+        {/* <p>Generate your own unique line pattern by adjusting the sliders below!</p> */}
+      </div>
+      <div className='pattern-controlls-container'>
+        <LinePatternGenerator
+          strokeWidth={strokeWidth}
+          startColor={startColor}
+          endColor={endColor}
+          svgBackgroundColor={svgBackgroundColor}
+          starsAttributes={starsAttributes}
+        />
+        <div className='pattern-controlls'>
+          <Controller
+            angle={angle}
+            strokeWidth={strokeWidth}
+            lineCount={lineCount}
+            startColor={startColor}
+            endColor={endColor}
+            onSliderChange={handleSliderChange}
+            onColorChange={onColorChange}
+          />
+
+          <div className='buttons'>
+            <button onClick={switchTheme} className='switchThemeButton' style={{}}>
+              Switch Theme
+            </button>
+            <button onClick={saveArtworkToBackend} className='saveArtworkButton' style={{}}>
+              Save Artwork
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className='saved-artworks'>
+        <h2>Saved Artworks</h2>
+      </div>
     </div>
   );
 }
