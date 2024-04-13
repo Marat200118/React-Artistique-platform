@@ -3,6 +3,7 @@ import './App.css';
 import LinePatternGenerator from './components/LinePatternGenerator';
 import Controller from './components/Controller'; 
 import fetchApi from "./fetchApi.js";
+import ArtworkPreview from './components/ArtworkPreview';
 
 const App = () => {
 
@@ -48,6 +49,7 @@ const App = () => {
   };
 
   const [starsAttributes, setStarsAttributes] = useState(() => generateStarsAttributes(Math.round(Math.random() * 150)));
+  const [savedArtworks, setSavedArtworks] = useState([]);
 
   useEffect(() => {
     const currentCount = starsAttributes.length;
@@ -87,43 +89,92 @@ const App = () => {
   const buttonTextColor = svg.theme === 'dark' ? '#1C1D1E' : '#F7F7F7';
 
 
-
   // Backend 
   const saveArtworkToBackend = async () => {
-  
-  const payload = {
-    data: {
-      angle: svg.angle,
-      strokeWidth: svg.strokeWidth,
-      lineCount: svg.lineCount,
-      startColor: svg.startColor,
-      endColor: svg.endColor,
-      name: `Artwork_${Date.now()}`
+
+
+    const payload = {
+      data: {
+        angle: svg.angle,
+        strokeWidth: svg.strokeWidth,
+        lineCount: svg.lineCount,
+        startColor: svg.startColor,
+        endColor: svg.endColor,
+        starsAttributes: JSON.stringify(starsAttributes),
+        name: `Artwork_${Date.now()}`,
+        svgBackgroundColor: currentBackgroundColor
+      }
+    };
+
+    console.log("Sending payload:", payload);
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    };
+
+    try {
+      const savedArtwork = await fetchApi({
+        endpoint: 'artworks', 
+        wrappedByKey: 'data',
+      }, options);
+
+      console.log('Artwork saved:', savedArtwork);
+
+      setSavedArtworks(prevArtworks => [...prevArtworks, {
+        ...payload.data,
+        id: savedArtwork.id,
+      }]);
+
+    } catch (error) {
+      console.error('Could not save artwork:', error);
     }
   };
 
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-     
-    },
-    body: JSON.stringify(payload)
-  };
+  useEffect(() => {
+    const fetchSavedArtworks = async () => {
+      try {
+        const response = await fetchApi({
+          endpoint: 'artworks',
+          wrappedByKey: 'data',
+        });
 
-  try {
-    const savedArtwork = await fetchApi({
-      endpoint: 'artworks', 
-      wrappedByKey: 'data',
-    }, options);
+        if (response && response.length > 0) {
+          console.log("Fetched artworks:", response);
+          const artworks = response.map(art => {
+            let parsedStarsAttributes = [];
+            try {
+              parsedStarsAttributes = JSON.parse(art.attributes.starsAttributes || '[]');
+            } catch (error) {
+              console.error('Error parsing starsAttributes:', error);
+            }
+            return {
+              ...art.attributes,
+              id: art.id,
+              starsAttributes: parsedStarsAttributes // Ensure this is an array
+            };
+          }); 
+          setSavedArtworks(artworks);
+        } else {
+          console.log("No artworks fetched or incorrect data structure:", response);
+        }
+      } catch (error) {
+        console.error("Failed to fetch artworks:", error);
+      }
+    };
 
-    console.log('Artwork saved:', savedArtwork);
-  
-  } catch (error) {
-    console.error('Could not save artwork:', error);
-    
-  }
-};
+    fetchSavedArtworks();
+  }, []);
+
+
+
+
+
+
+
 
   return (
      <div className="App" style={{ color: textColor }}>
@@ -162,6 +213,15 @@ const App = () => {
       </div>
       <div className='saved-artworks'>
         <h2>Saved Artworks</h2>
+        <div className='saved-artworks-grid'>
+          {savedArtworks.map((artwork, index) => (
+            <ArtworkPreview
+              key={artwork.id || index}
+              artwork={artwork}
+              // generateStarsAttributes={generateStarsAttributes} // Ensure this function is defined and passed if needed
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

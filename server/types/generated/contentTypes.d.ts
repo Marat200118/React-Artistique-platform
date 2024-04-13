@@ -380,6 +380,8 @@ export interface ApiArtworkArtwork extends Schema.CollectionType {
     startColor: Attribute.String;
     endColor: Attribute.String;
     name: Attribute.String;
+    starsAttributes: Attribute.JSON;
+    svgBackgroundColor: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

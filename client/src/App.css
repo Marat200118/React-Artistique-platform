@@ -118,3 +118,21 @@ label {
   gap: 3rem;
   margin-top: 2rem;
 }
+
+.saved-artworks-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.artwork-preview {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+/* .saved-artworks svg {
+  width: 25vw;
+  height: 30vh;
+} */

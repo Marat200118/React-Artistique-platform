@@ -29,6 +29,12 @@
     },
     "name": {
       "type": "string"
+    },
+    "starsAttributes": {
+      "type": "json"
+    },
+    "svgBackgroundColor": {
+      "type": "string"
     }
   }
 }
