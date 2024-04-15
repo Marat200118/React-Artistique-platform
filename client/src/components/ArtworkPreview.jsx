@@ -1,4 +1,3 @@
-// In ArtworkPreview.jsx
 import React from 'react';
 import PropTypes from 'prop-types';
 import LinePatternGenerator from './LinePatternGenerator';
@@ -13,7 +12,7 @@ const ArtworkPreview = ({ artwork }) => {
       parsedStarsAttributes = JSON.parse(starsAttributes);
     } catch (error) {
       console.error('Failed to parse starsAttributes:', error);
-      parsedStarsAttributes = []; // Default to an empty array if parsing fails
+      parsedStarsAttributes = [];
     }
   }
 
