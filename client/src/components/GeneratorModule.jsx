@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../App.css';
+import '../styles/style.css';
 import LinePatternGenerator from './LinePatternGenerator';
 import Controller from './Controller'; 
 import fetchApi from "../services/fetchApi";
