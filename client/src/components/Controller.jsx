@@ -5,8 +5,7 @@ import ColorPicker from './ColorPicker';
 
 const Controller = ({ angle, strokeWidth, lineCount, startColor, endColor, onSliderChange, onColorChange }) => {
   return (
-    <header className="App-header">
-      <h1>Falling Stars Pattern Generator</h1>
+    <header className="controlls">
       <Slider
         max={360}
         min={0}
