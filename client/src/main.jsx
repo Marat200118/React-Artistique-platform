@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/root";
 import "./styles/style.css"; 
-import Home from "./routes/home";
+import Home from "./routes";
 import ErrorPage from "./routes/error-page";
 import CreateArtwork from "./routes/createArtwork";
 

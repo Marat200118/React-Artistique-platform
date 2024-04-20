@@ -1,6 +1,6 @@
 @import 'open-props/style';
 @import 'open-props/normalize';
-@import 'open-props/buttons';
+/* @import 'open-props/buttons'; */
 
 html {
   box-sizing: border-box;
@@ -83,24 +83,29 @@ svg {
 }
 
 button {
+  font-family: "Manrope", sans-serif;
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #fafafa;
-  color: #242424;
+  background-color: #0085e5;
+  color: #f5f5f5;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.25s;
+  max-width: 15rem;
 }
+
 button:hover {
-  border-color: #18d000;
+  /* border-color: #18d000; */
+  background-color: #0195ff; ;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -110,9 +115,9 @@ button:focus-visible {
   a:hover {
     color: #747bff;
   }
-  button {
+  /* button {
     background-color: #f9f9f9;
-  }
+  } */
 }
 
 
@@ -207,21 +212,30 @@ label {
   margin-top: 2rem;
 }
 
-/* 
-.saved-artworks-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr); 
-  gap: 10px;
-  margin-bottom: 20px;
+.right-image video {
+  width: 40rem;
+  height: auto;
 }
 
-.artwork-preview {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-} */
+.right-image {
+  margin-top: 2rem;
+}
 
-/* .saved-artworks svg {
-  width: 25vw;
-  height: 30vh;
-} */
+.landing-view {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  gap: 2rem;
+}
+
+.left-text {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-direction: column;
+}
+
+.get-started-button {
+  font-weight: 700;
+}

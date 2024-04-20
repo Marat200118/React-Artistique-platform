@@ -25,9 +25,6 @@ const CreateArtwork = () => {
       <label htmlFor="description">Description:</label>
       <textarea id="description" name="description" required />
 
-      <label htmlFor="image">Image URL:</label>
-      <input type="url" id="image" name="image" required />
-
       <button type="submit">Create Artwork</button>
     </form>
   );
