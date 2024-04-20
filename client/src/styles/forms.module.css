@@ -1,0 +1,25 @@
+
+
+.formGroup {
+  font-size: var(--font-size-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+  margin-bottom: var(--size-8);
+}
+
+.formGroup label {
+  color: var(--gray-10);
+}
+
+.submit {
+    padding-inline: var(--size-8);
+    padding-block: var(--size-3);
+    border-radius: var(--radius-2);
+    box-shadow: var(--shadow-2);
+}
+
+.error {
+  color: var(--red-8);
+  font-size: var(--font-size-2);
+}

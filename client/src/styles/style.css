@@ -66,6 +66,7 @@ a {
   color: #646cff;
   text-decoration: inherit;
   color: #242424;
+  transition: all 0.25s;
 }
 
 a:hover {
@@ -213,7 +214,7 @@ label {
 }
 
 .right-image video {
-  width: 40rem;
+  width: 45rem;
   height: auto;
 }
 

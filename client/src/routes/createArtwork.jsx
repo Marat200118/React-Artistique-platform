@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { saveArtwork } from '../services/artworkService'; // You'd need to implement this
+import GeneratorModule from '../components/GeneratorModule';
 
 const CreateArtwork = () => {
   const navigate = useNavigate();
@@ -18,15 +18,7 @@ const CreateArtwork = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Artwork Name:</label>
-      <input type="text" id="name" name="name" required />
-
-      <label htmlFor="description">Description:</label>
-      <textarea id="description" name="description" required />
-
-      <button type="submit">Create Artwork</button>
-    </form>
+    <GeneratorModule />
   );
 };
 
