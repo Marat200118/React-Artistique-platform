@@ -1,25 +1,108 @@
-
-
 .formGroup {
   font-size: var(--font-size-2);
   display: flex;
   flex-direction: column;
+  align-items: baseline;
   gap: var(--size-1);
   margin-bottom: var(--size-8);
+  min-width: 20rem;
+  max-width: 30rem;
 }
+
 
 .formGroup label {
   color: var(--gray-10);
+  color: #333;
+  margin-bottom: 5px;
 }
 
 .submit {
-    padding-inline: var(--size-8);
-    padding-block: var(--size-3);
-    border-radius: var(--radius-2);
-    box-shadow: var(--shadow-2);
+  padding-inline: var(--size-8);
+  padding-block: var(--size-3);
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-2);
 }
 
 .error {
   color: var(--red-8);
   font-size: var(--font-size-2);
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #e9e9e9;
+  border-radius: 1rem;
+}
+
+.header h2 {
+  color: #e60606;
+}
+
+.header p {
+  color: #666;
+  font-size: 16px;
+}
+
+.formGroup input {
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: .4rem;
+  border: 2px solid #ccc;
+  background-color: #f3f3f3;
+  color: #333;
+  transition: border-color 0.3s;
+  width: 20rem;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #0056b3;
+}
+
+.submit {
+  padding: 10px 15px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit:hover, .submit:focus {
+  background-color: #0056b3;
+}
+
+.submit:disabled {
+  background-color: #ccc;
+}
+
+/* Error Field Styling */
+.error {
+  color: #d9534f;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Shake animation for error handling */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-10px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(10px);
+  }
+}
+
+.shake {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }

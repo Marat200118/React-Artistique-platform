@@ -9,8 +9,8 @@ const AuthStatus = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout(); // Call the logout function from auth service
-    navigate('/auth/login'); // Redirect to login page after logout
+    logout(); 
+    navigate('/'); 
   };
 
   return (

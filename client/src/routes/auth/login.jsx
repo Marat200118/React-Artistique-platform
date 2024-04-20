@@ -47,7 +47,7 @@ const Login = () => {
   return (
     <section>
       <hgroup className={style.header}>
-        <h2>Sign in</h2>
+        <h2>Log in</h2>
         <p>Get access to all the features</p>
       </hgroup>
       <Form method="post">
