@@ -45,7 +45,7 @@ const Login = () => {
 
   let actionData = useActionData();
   return (
-    <section>
+    <section className={style.loginSection}>
       <hgroup className={style.header}>
         <h2>Log in</h2>
         <p>Get access to all the features</p>

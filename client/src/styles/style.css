@@ -65,7 +65,7 @@ h2 {
   font-family: var(--main-font);
   font-size: 2.8em;
   line-height: 1.1;
-  color: #242424;
+  color: #363636;
   font-weight: 900;
 
 }
@@ -118,8 +118,8 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-
-/* @media (prefers-color-scheme: light) {
+/* 
+@media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
@@ -150,11 +150,13 @@ button:focus-visible {
     color: #f9f9f9 !important;
   }
   button {
-    background-color: #b2ff47;
+    background-color: #aae853;
+    color: #242424;
+  }
+  .get-started-button a {
+    color: #242424 !important;
   }
 } */
-
-
 
 
 .switchThemeButton {
@@ -221,6 +223,10 @@ label {
   border-radius: 1.3px;
 }
 
+.slider-container input[type=color] {
+  border: none;
+}
+
 .slider-container input[type=range]:focus {
   outline: none;
 }
@@ -248,6 +254,7 @@ label {
 
 .right-image video {
   width: 45rem;
+  border-radius: 1rem;
   height: auto;
 }
 
@@ -261,6 +268,7 @@ label {
   align-items: center;
   justify-content: space-around;
   gap: 2rem;
+  margin-top: 4rem;
 }
 
 .left-text {
