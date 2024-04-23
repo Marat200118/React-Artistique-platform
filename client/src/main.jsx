@@ -4,8 +4,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/root";
+import Index from "./routes/index";
 import "./styles/style.css"; 
-import Home from "./routes";
 import ErrorPage from "./routes/error-page";
 import CreateArtwork from "./routes/createArtwork";
 import Login from "./routes/auth/login";
@@ -13,16 +13,22 @@ import { getAuthData } from './services/auth';
 
 const router = createBrowserRouter([
   {
+    id: "root",
     path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
-    loader: async () => ({
-      user: getAuthData() // Fetches user data from local storage or similar
-    }),
+    loader: Root.loader,
     children: [
-      { index: true, element: <Home /> },
-      { path: "create-artwork", element: <CreateArtwork /> },
-      { path: "/auth/login", element: <Login />, action: Login.action },
+      { index: true, element: <Index /> },
+      { 
+        path: "create-artwork",
+        element: <CreateArtwork /> 
+      },
+      { 
+        path: "/auth/login",
+        element: <Login />, 
+        action: Login.action 
+      },
     ],
   },
 ]);

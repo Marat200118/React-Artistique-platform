@@ -8,17 +8,30 @@ const CreateArtwork = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData.entries());
+    const data = {
+      angle: formData.get('angle'),
+      strokeWidth: formData.get('strokeWidth'),
+      lineCount: formData.get('lineCount'),
+      startColor: formData.get('startColor'),
+      endColor: formData.get('endColor'),
+      name: formData.get('name'),
+      starsAttributes: formData.getAll('starsAttributes'), // Assuming starsAttributes is an array
+      svgBackgroundColor: formData.get('svgBackgroundColor')
+    };
+    
     try {
-      await saveArtwork(data);
-      navigate('/'); // Navigate home or to a success page
+      await GeneratorModule.saveArtworkToBackend(data);
+      navigate('/');
     } catch (error) {
       console.error('Failed to create artwork:', error);
     }
   };
 
   return (
-    <GeneratorModule />
+    <form onSubmit={handleSubmit}>
+      <GeneratorModule />
+      <input type="submit" value="Save Artwork" />
+    </form>
   );
 };
 

@@ -1,3 +1,5 @@
+//GeneratorModule.jsx
+
 import React, { useState } from 'react';
 import '../styles/style.css';
 import LinePatternGenerator from './LinePatternGenerator';
@@ -94,19 +96,17 @@ const App = () => {
 
 
   // Backend 
-  const saveArtworkToBackend = async () => {
-
-
+  const saveArtworkToBackend = async (artworkData) => {
     const payload = {
       data: {
-        angle: svg.angle,
-        strokeWidth: svg.strokeWidth,
-        lineCount: svg.lineCount,
-        startColor: svg.startColor,
-        endColor: svg.endColor,
-        starsAttributes: JSON.stringify(starsAttributes),
-        name: `Artwork_${Date.now()}`,
-        svgBackgroundColor: currentBackgroundColor
+        angle: artworkData.angle,
+        strokeWidth: artworkData.strokeWidth,
+        lineCount: artworkData.lineCount,
+        startColor: artworkData.startColor,
+        endColor: artworkData.endColor,
+        starsAttributes: JSON.stringify(artworkData.starsAttributes),
+        name: artworkData.name,
+        svgBackgroundColor: artworkData.svgBackgroundColor
       }
     };
 
@@ -121,22 +121,19 @@ const App = () => {
     };
 
     try {
-      const savedArtwork = await fetchApi({
-        endpoint: 'artworks', 
-        wrappedByKey: 'data',
-      }, options);
-
+      const response = await fetch(`${process.env.VITE_STRAPI_URL}/artworks`, options);
+      const savedArtwork = await response.json();
       console.log('Artwork saved:', savedArtwork);
-
-      setSavedArtworks(prevArtworks => [...prevArtworks, {
-        ...payload.data,
-        id: savedArtwork.id,
-      }]);
-
+      return savedArtwork;
     } catch (error) {
       console.error('Could not save artwork:', error);
+      throw error; 
     }
   };
+
+
+  
+
 
 
 
