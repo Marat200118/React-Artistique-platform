@@ -9,6 +9,7 @@ import { createArtwork, getArtworks } from '../services/artwork';
 import '../components/ArtworkPreview';
 import ArtworkPreview from '../components/ArtworkPreview';
 
+
 const action = async ({ request }) => {
   const formData = await request.formData();
   const data = JSON.parse(formData.get('data'));
@@ -35,19 +36,22 @@ const loader = async () => {
   return { artworks };
 };
 
+  const getRandomColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+  const color1 = getRandomColor();
+  const color2 = getRandomColor();
 
 
 const CreateArtwork = () => {
 
-  const getRandomColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+  // const getRandomColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
   const getRandomInRange = (min, max) => Math.random() * (max - min) + min;
   
   const [svg, setSvg] = useState ({
     strokeWidth: getRandomInRange(0.05, 1),
     lineCount: Math.round(Math.random() * 150),
     angle: Math.round(Math.random() * 360),
-    startColor: getRandomColor(),
-    endColor: getRandomColor(),
+    startColor: color1,
+    endColor: color2,
     theme: 'dark',
     svgBackgroundColor: '#1C1D1E',
   });
@@ -135,8 +139,8 @@ const CreateArtwork = () => {
             angle={angle}
             strokeWidth={strokeWidth}
             lineCount={lineCount}
-            startColor={svg.startColor}
-            endColor={svg.endColor}
+            startColor={startColor}
+            endColor={endColor}
             onSliderChange={handleSliderChange}
             onColorChange={onColorChange}
           />

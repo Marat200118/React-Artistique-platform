@@ -10,6 +10,7 @@ import ErrorPage from "./routes/error-page";
 import CreateArtwork from "./routes/createArtwork";
 import Login from "./routes/auth/login";
 import ArtworkDetail from "./routes/artworkDetail";
+import Profile from "./routes/auth/profile";
 // import { getAuthData } from './services/auth';
 
 const router = createBrowserRouter([
@@ -36,6 +37,11 @@ const router = createBrowserRouter([
         path: "/artwork/detail/:id",
         element: <ArtworkDetail />,
         loader: ArtworkDetail.loader,
+      },
+      {
+        path: "/auth/profile",
+        element: <Profile />,
+        loader: Profile.loader,
       },
     ],
   },

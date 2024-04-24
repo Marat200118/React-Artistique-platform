@@ -2,15 +2,21 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 
-const LinePatternGenerator = ({ strokeWidth, startColor, endColor, svgBackgroundColor, starsAttributes, previewMode }) => {
+const LinePatternGenerator = ({ strokeWidth, startColor, endColor, svgBackgroundColor, starsAttributes, previewMode, id }) => {
+
+  //trying to porevent cross-co ntamination between svgs
+  const uniqueId = id || uuidv4(); 
+
+
   const scale = previewMode ? 1 : 1; // Adjust scale for preview
   const viewBoxWidth = 120 * scale;
   const viewBoxHeight = 100 * scale;
   const lineElements = (starsAttributes || []).map((attr, i) => {
     const { x1, y1, x2, y2 } = attr;
     const fadedEndColor = `${endColor}1A`; // Append alpha if needed
-    const gradientId = `gradient${i}`;
+    const gradientId = `gradient-${uniqueId}-${i}`;
 
     return {
       line: (
@@ -57,6 +63,7 @@ LinePatternGenerator.propTypes = {
     y2: PropTypes.number.isRequired,
   })).isRequired,
   previewMode: PropTypes.bool,
+  id: PropTypes.string,
 };
 
 export default LinePatternGenerator;

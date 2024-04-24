@@ -48,3 +48,18 @@ export const getToken = () => {
   const authData = getAuthData();
   return authData.jwt;
 };
+
+export const getMe = async () => {
+  const result = await fetch(
+    `${import.meta.env.VITE_STRAPI_URL}/api/users/me?populate=*`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+    }
+  ).then((res) => res.json());
+
+  return result;
+};

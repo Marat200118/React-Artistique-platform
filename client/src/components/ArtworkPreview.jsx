@@ -8,6 +8,7 @@ import LinePatternGenerator from './LinePatternGenerator';
 
 const ArtworkPreview = ({ artwork }) => {
   const { id, strokeWidth, startColor, endColor, svgBackgroundColor, starsAttributes, name } = artwork;
+  // console.log(startColor, endColor);
 
   const parsedStarsAttributes = typeof starsAttributes === 'string' ? JSON.parse(starsAttributes) : starsAttributes;
 
@@ -22,14 +23,13 @@ const ArtworkPreview = ({ artwork }) => {
           svgBackgroundColor={svgBackgroundColor}
           starsAttributes={parsedStarsAttributes}
           previewMode={true}
+          id={`artwork-${artwork.id}`} // Ensure unique id for each artwork
         />
         <p>{name}</p>
       </Link>
     </div>
   );
 };
-
-
 
 ArtworkPreview.propTypes = {
   artwork: PropTypes.shape({
