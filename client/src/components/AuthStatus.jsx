@@ -20,7 +20,11 @@ const AuthStatus = () => {
       {user && user.jwt ? (
         <>
          <div className={styles.buttons}>
-          <span className={styles.welcomeMessage}>Welcome, {user.user.username}!</span>
+          <span className={styles.welcomeMessage}>
+            <Link to="/auth/profile">
+              Welcome, {user.user.username}!
+            </Link>
+          </span>
           <button className={styles.button} onClick={handleLogout}>Log Out</button>
          </div>
         </>
@@ -28,7 +32,7 @@ const AuthStatus = () => {
         <>
         <div className={styles.buttons}>
           <Link className={styles.loginButton} to="/auth/login">Log In</Link>
-          <Link className={styles.signupButton} to="/auth/signup">Sign Up</Link>
+          <Link className={styles.signupButton} to="/auth/register">Sign Up</Link>
         </div>
         </>
       )}

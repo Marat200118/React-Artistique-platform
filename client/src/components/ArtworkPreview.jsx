@@ -4,13 +4,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import LinePatternGenerator from './LinePatternGenerator';
+import { getArtworkById } from '../services/artwork';
 
 
 const ArtworkPreview = ({ artwork }) => {
-  const { id, strokeWidth, startColor, endColor, svgBackgroundColor, starsAttributes, name } = artwork;
-  // console.log(startColor, endColor);
+  const { id, strokeWidth, startColor, endColor, svgBackgroundColor, starsAttributes, name, owner } = artwork;
 
   const parsedStarsAttributes = typeof starsAttributes === 'string' ? JSON.parse(starsAttributes) : starsAttributes;
+
+   const ownerUsername = owner?.data?.attributes?.username;
 
 
   return (
@@ -23,9 +25,10 @@ const ArtworkPreview = ({ artwork }) => {
           svgBackgroundColor={svgBackgroundColor}
           starsAttributes={parsedStarsAttributes}
           previewMode={true}
-          id={`artwork-${artwork.id}`} // Ensure unique id for each artwork
+          id={`artwork-${id}`}
         />
         <p>{name}</p>
+        {ownerUsername && <p>Owner: {ownerUsername}</p>}
       </Link>
     </div>
   );
@@ -33,6 +36,7 @@ const ArtworkPreview = ({ artwork }) => {
 
 ArtworkPreview.propTypes = {
   artwork: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     strokeWidth: PropTypes.number.isRequired,
     startColor: PropTypes.string.isRequired,
     endColor: PropTypes.string.isRequired,
@@ -47,6 +51,9 @@ ArtworkPreview.propTypes = {
       }))
     ]).isRequired,
     name: PropTypes.string.isRequired,
+    owner: PropTypes.shape({
+      username: PropTypes.string,
+    }),
   }).isRequired,
 };
 

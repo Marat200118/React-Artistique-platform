@@ -11,6 +11,7 @@ import CreateArtwork from "./routes/createArtwork";
 import Login from "./routes/auth/login";
 import ArtworkDetail from "./routes/artworkDetail";
 import Profile from "./routes/auth/profile";
+import Register from "./routes/auth/register";
 // import { getAuthData } from './services/auth';
 
 const router = createBrowserRouter([
@@ -42,6 +43,11 @@ const router = createBrowserRouter([
         path: "/auth/profile",
         element: <Profile />,
         loader: Profile.loader,
+      },
+      {
+        path: "/auth/register",
+        element: <Register />,
+        action: Register.action,
       },
     ],
   },
