@@ -20,9 +20,8 @@ const Profile = () => {
       <ul>
         {profile.artworks.map((artwork) => (
           <li key={artwork.id}>
-            <Link to={`/artwork/detail/${artwork.id}`}>
-               <ArtworkPreview key={artwork.id} artwork={artwork} />
-            </Link>
+            {/* Remove the Link here, ArtworkPreview should handle its own linking */}
+            <ArtworkPreview key={artwork.id} artwork={artwork} />
           </li>
         ))}
       </ul>
