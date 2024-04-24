@@ -8,6 +8,8 @@ const AuthStatus = () => {
   const { user } = useLoaderData();
   const navigate = useNavigate();
 
+  // console.log("AuthStatus user:", user);
+
   const handleLogout = () => {
     logout(); 
     navigate('/'); 
@@ -18,7 +20,7 @@ const AuthStatus = () => {
       {user && user.jwt ? (
         <>
          <div className={styles.buttons}>
-          <span className={styles.welcomeMessage}>Welcome, {user.username}!</span>
+          <span className={styles.welcomeMessage}>Welcome, {user.user.username}!</span>
           <button className={styles.button} onClick={handleLogout}>Log Out</button>
          </div>
         </>

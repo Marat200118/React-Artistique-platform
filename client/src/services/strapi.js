@@ -1,3 +1,7 @@
+//strapi.js
+
+import qs from "qs";
+
 const fetchApi = async (
   {
     endpoint,
@@ -11,17 +15,22 @@ const fetchApi = async (
     endpoint = endpoint.slice(1);
   }
 
-  const url = new URL(`${import.meta.env.VITE_STRAPI_URL}/api/${endpoint}`);
+  console.log("url", `${import.meta.env.VITE_STRAPI_URL}/api/${endpoint}`);
 
-  if (query) {
-    Object.entries(query).forEach(([key, value]) => {
-      url.searchParams.append(key, value);
-    });
-  }
+  const url = new URL(
+    `${import.meta.env.VITE_STRAPI_URL}/api/${endpoint}${
+      query ? `?${qs.stringify(query, { encode: false })}` : ``
+    }`
+  );
 
   console.log("Fetching...", url.toString());
 
   const res = await fetch(url.toString(), options);
+
+  if (!res.ok) {
+    throw new Error(`Error fetching ${url.toString()}`);
+  }
+
   let data = await res.json();
 
   if (wrappedByKey) {
@@ -35,4 +44,8 @@ const fetchApi = async (
   return data;
 };
 
-export default fetchApi;
+const unwrapAtributes = (item) => {
+  return { id: item.id, ...item.attributes };
+};
+
+export { fetchApi, unwrapAtributes };

@@ -9,7 +9,8 @@ import "./styles/style.css";
 import ErrorPage from "./routes/error-page";
 import CreateArtwork from "./routes/createArtwork";
 import Login from "./routes/auth/login";
-import { getAuthData } from './services/auth';
+import ArtworkDetail from "./routes/artworkDetail";
+// import { getAuthData } from './services/auth';
 
 const router = createBrowserRouter([
   {
@@ -21,13 +22,20 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Index /> },
       { 
-        path: "create-artwork",
-        element: <CreateArtwork /> 
+        path: "/create-artwork",
+        element: <CreateArtwork />, 
+        action: CreateArtwork.action,
+        loader: CreateArtwork.loader,
       },
       { 
         path: "/auth/login",
         element: <Login />, 
-        action: Login.action 
+        action: Login.action,
+      },
+      {
+        path: "/artwork/detail/:id",
+        element: <ArtworkDetail />,
+        loader: ArtworkDetail.loader,
       },
     ],
   },

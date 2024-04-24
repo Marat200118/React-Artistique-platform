@@ -1,32 +1,30 @@
+//ArtworkPreview.jsx
+
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import LinePatternGenerator from './LinePatternGenerator';
 
+
 const ArtworkPreview = ({ artwork }) => {
-  const { strokeWidth, startColor, endColor, svgBackgroundColor, starsAttributes, name } = artwork;
+  const { id, strokeWidth, startColor, endColor, svgBackgroundColor, starsAttributes, name } = artwork;
 
-  let parsedStarsAttributes = starsAttributes;
+  const parsedStarsAttributes = typeof starsAttributes === 'string' ? JSON.parse(starsAttributes) : starsAttributes;
 
-  if (typeof starsAttributes === 'string') {
-    try {
-      parsedStarsAttributes = JSON.parse(starsAttributes);
-    } catch (error) {
-      console.error('Failed to parse starsAttributes:', error);
-      parsedStarsAttributes = [];
-    }
-  }
 
   return (
     <div className="artwork-preview">
-      <LinePatternGenerator
-        strokeWidth={strokeWidth}
-        startColor={startColor}
-        endColor={endColor}
-        svgBackgroundColor={svgBackgroundColor}
-        starsAttributes={parsedStarsAttributes}
-        previewMode={true}
-      />
-      <p>{name}</p>
+      <Link to={`/artwork/detail/${id}`}>
+        <LinePatternGenerator
+          strokeWidth={strokeWidth}
+          startColor={startColor}
+          endColor={endColor}
+          svgBackgroundColor={svgBackgroundColor}
+          starsAttributes={parsedStarsAttributes}
+          previewMode={true}
+        />
+        <p>{name}</p>
+      </Link>
     </div>
   );
 };
@@ -39,12 +37,15 @@ ArtworkPreview.propTypes = {
     startColor: PropTypes.string.isRequired,
     endColor: PropTypes.string.isRequired,
     svgBackgroundColor: PropTypes.string.isRequired,
-    starsAttributes: PropTypes.arrayOf(PropTypes.shape({
-      x1: PropTypes.number.isRequired,
-      y1: PropTypes.number.isRequired,
-      x2: PropTypes.number.isRequired,
-      y2: PropTypes.number.isRequired,
-    })).isRequired,
+    starsAttributes: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.shape({
+        x1: PropTypes.number.isRequired,
+        y1: PropTypes.number.isRequired,
+        x2: PropTypes.number.isRequired,
+        y2: PropTypes.number.isRequired,
+      }))
+    ]).isRequired,
     name: PropTypes.string.isRequired,
   }).isRequired,
 };

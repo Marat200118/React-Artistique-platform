@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import GeneratorModule from '../components/GeneratorModule';
+// import GeneratorModule from '../components/GeneratorModule';
 
 const Home = () => {
   return (

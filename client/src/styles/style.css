@@ -238,7 +238,7 @@ label {
 
 
 .pattern-controlls-container {
-  margin-top: 4rem;
+  margin-top: 2rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -285,4 +285,24 @@ label {
 .get-started-button a {
   color: #f5f5f5;
   text-decoration: none;
+}
+
+
+.artwork-preview {
+  display: flex;
+  flex-direction: column;
+  /* flex: 1 0 25%; */
+}
+
+.artwork-preview svg {
+  width: 20vw;
+  height: 20vh;
+  border-radius: 1rem;
+}
+
+.artworks-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }

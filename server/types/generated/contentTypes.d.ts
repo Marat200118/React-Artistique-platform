@@ -382,6 +382,11 @@ export interface ApiArtworkArtwork extends Schema.CollectionType {
     name: Attribute.String;
     starsAttributes: Attribute.JSON;
     svgBackgroundColor: Attribute.String;
+    owner: Attribute.Relation<
+      'api::artwork.artwork',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -761,6 +766,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'plugin::users-permissions.user',
       'manyToOne',
       'plugin::users-permissions.role'
+    >;
+    artworks: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::artwork.artwork'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
