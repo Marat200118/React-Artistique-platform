@@ -12,7 +12,7 @@ const ArtworkPreview = ({ artwork }) => {
 
   const parsedStarsAttributes = typeof starsAttributes === 'string' ? JSON.parse(starsAttributes) : starsAttributes;
 
-   const ownerUsername = owner?.data?.attributes?.username;
+  const ownerUsername = owner?.data?.attributes?.username;
 
 
   return (

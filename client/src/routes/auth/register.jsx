@@ -14,7 +14,7 @@ import style from "./login.module.css";
 
 const action = async ({ request }) => {
   const formData = await request.formData();
-  const { email, password, username } = Object.fromEntries(formData);
+  const { email, password, username, picture } = Object.fromEntries(formData);
 
   if (!username) {
     return {
@@ -35,7 +35,7 @@ const action = async ({ request }) => {
   }
 
   try {
-    await register(username, password, email);
+    await register(username, password, email, picture);
   } catch (error) {
     return {
       error: { general: error.message },
@@ -62,7 +62,7 @@ const Register = () => {
         <h2>Hello!<br></br>Register now</h2>
         <p>Get access to all the features</p>
       </hgroup>
-      <Form method="post" className={formstyles.formBlock}>
+      <Form method="post" className={formstyles.formBlock} encType="multipart/form-data">
         <input type="hidden" name="redirectTo" value={from} />
         <div className={formstyles.formGroup}>
           <label htmlFor="email">Username</label>
@@ -99,6 +99,16 @@ const Register = () => {
             defaultValue="tester"
           />
           <ErrorField data={actionData} field="password" />
+        </div>
+        <div className={formstyles.formGroup}>
+          <label htmlFor="picture">Profile Picture</label>
+          <input
+            type="file"
+            name="picture"
+            id="picture"
+            accept="image/*"
+          />
+          <ErrorField data={actionData} field="picture" />
         </div>
         <div className={formstyles.formGroup}>
           <ErrorField data={actionData} field="general" />

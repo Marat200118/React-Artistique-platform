@@ -14,6 +14,9 @@ const Home = () => {
           <button className="get-started-button">
             <Link to="/create-artwork">Start the Generator!</Link>
           </button>
+          <button className="green-button">
+            <Link to="/artwork-collection">Artwork Collection</Link>
+          </button>
         </div>
 
         <div className="right-image">

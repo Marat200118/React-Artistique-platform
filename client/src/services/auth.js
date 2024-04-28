@@ -29,14 +29,14 @@ export const authenticate = async (username, password) => {
   return data;
 };
 
-export const register = async (username, password, email) => {
+export const register = async (username, password, email, picture) => {
   let response;
   try {
     response = await fetch(
       `${import.meta.env.VITE_STRAPI_URL}/api/auth/local/register`,
       {
         method: "POST",
-        body: JSON.stringify({ username, password, email }),
+        body: JSON.stringify({ username, password, email, picture }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -85,6 +85,7 @@ export const getMe = async () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getToken()}`,
       },
+      // populate: ["*"],
     }
   ).then((res) => res.json());
 

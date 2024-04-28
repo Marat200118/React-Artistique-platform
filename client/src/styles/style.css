@@ -176,6 +176,19 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.green-button {
+  background-color: var(--my-regular-green);
+
+  &:hover {
+    background-color: var(--my-light-green);
+  }
+}
+
+.green-button a {
+  font-family: var(--manrope);
+  font-weight: 700;
+  color: #f5f5f5;
+}
 
 .get-started-button a {
   color: #f5f5f5;
@@ -389,4 +402,22 @@ label {
   justify-content: space-around;
   flex-wrap: wrap;
   gap: 2rem;
+}
+
+
+.large-profile-pic {
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.profile-text {
+  text-align: left;
 }

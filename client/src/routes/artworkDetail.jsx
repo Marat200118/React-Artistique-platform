@@ -1,7 +1,7 @@
 //artworkDetail.jsx
 
 import { getArtworkById } from "../services/artwork";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 import LinePatternGenerator from "../components/LinePatternGenerator";
 
 const loader = async ({ params }) => {
@@ -13,13 +13,14 @@ const ArtworkDetail = () => {
 
   const { artwork } = useLoaderData();
   const { strokeWidth, startColor, endColor, svgBackgroundColor, starsAttributes, name } = artwork;
+  const ownerUsername = artwork.owner?.data?.attributes?.username;
   return (
     <div>
       <h1>{name}</h1>
       {
         artwork.owner.data && 
         <p>
-          Owner: {artwork.owner.data.attributes.username}
+          Owner: <Link to={ownerUsername ? `/user/${artwork.owner.data.id}` : '/'}>{ownerUsername ? ownerUsername : 'Anonymous'}</Link>
         </p>
       }
       <LinePatternGenerator
@@ -37,8 +38,3 @@ const ArtworkDetail = () => {
 ArtworkDetail.loader = loader;
 
 export default ArtworkDetail;
-
-
-
-// simon.vanherweghe@howest.be
-// Test1234

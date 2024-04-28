@@ -12,16 +12,26 @@ const loader = async () => {
 
 const Profile = () => {
   const { profile } = useLoaderData();
+  // console.log("Profile:", profile);
+
+  
   return (
     <article>
       <h1>Profile</h1>
-      <p>Username: {profile.username}</p>
+      <div className="profile-info">
+        <div className="profile-picture">
+          <img src={profile.picture ? import.meta.env.VITE_STRAPI_URL + profile.picture.url : '/default-avatar.jpeg'} alt="Profile avatar" className="large-profile-pic" />
+        </div>
+        <div className="profile-text">
+          <p>Username: {profile.username}</p>
+          <p>Email: {profile.email}</p>
+          <p>Member since: {profile.createdAt}</p>
+        </div>
+      </div>
       <h2>My Artworks</h2>
       <div className="my-artworks">
         {profile.artworks.map((artwork) => (
-          <li key={artwork.id}>
-            <ArtworkPreview key={artwork.id} artwork={artwork} />
-          </li>
+          <ArtworkPreview key={artwork.id} artwork={artwork} />
         ))}
       </div>
     </article>

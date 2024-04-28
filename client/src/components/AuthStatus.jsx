@@ -8,7 +8,7 @@ const AuthStatus = () => {
   const { user } = useLoaderData();
   const navigate = useNavigate();
 
-  // console.log("AuthStatus user:", user);
+  console.log("AuthStatus user:", user);
 
   const handleLogout = () => {
     logout(); 
@@ -16,24 +16,24 @@ const AuthStatus = () => {
   };
 
   return (
-    <div>
+    <div className={styles.buttons}>
       {user && user.jwt ? (
-        <>
-         <div className={styles.buttons}>
-          <span className={styles.welcomeMessage}>
-            <Link to="/auth/profile">
-              Welcome, {user.user.username}!
-            </Link>
-          </span>
-          <button className={styles.button} onClick={handleLogout}>Log Out</button>
-         </div>
-        </>
+        <div className={styles.dropdown}>
+          <Link to="/auth/profile">
+            <img
+              src={user.user.picture ? `${import.meta.env.VITE_STRAPI_URL}${user.user.picture.url}` : '/default-avatar.jpeg'}
+              alt="Profile avatar"
+              className={styles.smallProfilePic}
+            />
+          </Link>
+          <div>
+            <a href="#" onClick={handleLogout}>Log Out</a>
+          </div>
+        </div>
       ) : (
         <>
-        <div className={styles.buttons}>
           <Link className={styles.loginButton} to="/auth/login">Log In</Link>
           <Link className={styles.signupButton} to="/auth/register">Sign Up</Link>
-        </div>
         </>
       )}
     </div>
