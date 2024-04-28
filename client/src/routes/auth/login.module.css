@@ -1,8 +1,2 @@
-.header {
-  margin-bottom: var(--size-5);
-}
+/* login.module.css */
 
-.shake {
-  animation: var(--animation-shake-x) forwards;
-  animation-duration: 0.5s;
-}

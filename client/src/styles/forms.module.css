@@ -1,18 +1,26 @@
+/* forms.module.css */
+@import 'style.css';
+/* 
+ --my-light-green: #7AE582;
+  --my-persian-green: #25A18E;
+  --my-aqua-green: #9FFFCB;
+  --my-blue: #00A5CF;
+  --my-dark-blue: #004E64; */
+
 .formGroup {
   font-size: var(--font-size-2);
   display: flex;
   flex-direction: column;
   align-items: baseline;
   gap: var(--size-1);
-  margin-bottom: var(--size-8);
-  min-width: 20rem;
+  margin-bottom: var(--size-7);
   max-width: 30rem;
 }
 
 
 .formGroup label {
   color: var(--gray-10);
-  color: #333;
+  font-weight: 500;
   margin-bottom: 5px;
 }
 
@@ -33,17 +41,19 @@ section {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #e9e9e9;
+  /* background-color: var(--my-dark-blue); */
   border-radius: 1rem;
   margin-top: 3rem;
 }
 
 .header h2 {
-  color: #e60606;
+  color: var(--my-dark-blue);
+  font-size: 4rem;
+  line-height: 1.5;
 }
 
 .header p {
-  color: #666;
+  color: var(--my-dark-blue);
   font-size: 16px;
 }
 
@@ -51,8 +61,8 @@ section {
   font-size: 16px;
   padding: 8px 12px;
   border-radius: .4rem;
-  border: 2px solid #ccc;
-  background-color: #f3f3f3;
+  border: 2px solid var(--my-persian-green);
+  background-color: #f8f8f8;
   color: #333;
   transition: border-color 0.3s;
   width: 20rem;
@@ -81,7 +91,6 @@ section {
   background-color: #ccc;
 }
 
-/* Error Field Styling */
 .error {
   color: #d9534f;
   font-size: 14px;
@@ -107,3 +116,48 @@ section {
   backface-visibility: hidden;
   perspective: 1000px;
 }
+
+.header {
+  margin-bottom: var(--size-5);
+  text-align: left;
+}
+
+.shake {
+  animation: var(--animation-shake-x) forwards;
+  animation-duration: 0.5s;
+}
+
+.loginSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  min-height: 70vh;
+}
+
+.formBlock {
+  font-family: 'Manrope', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  padding: 5rem;
+  border-radius: 1rem;
+  min-height: 70vh;
+  min-width: 50vw;
+}
+
+.alreadyHave a {
+  color: var(--my-persian-green);
+  text-decoration: underline;
+
+}
+
+@media screen and (max-width: 768px) {
+  .loginSection {
+    flex-direction: column;
+  }
+}
+  

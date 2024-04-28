@@ -1,3 +1,5 @@
+// register.jsx
+
 import {
   Form,
   redirect,
@@ -55,12 +57,12 @@ const Register = () => {
   let actionData = useActionData();
 
   return (
-    <section>
-      <hgroup className={style.header}>
-        <h2>Sign up</h2>
+    <section className={formstyles.loginSection}>
+      <hgroup className={formstyles.header}>
+        <h2>Hello!<br></br>Register now</h2>
         <p>Get access to all the features</p>
       </hgroup>
-      <Form method="post">
+      <Form method="post" className={formstyles.formBlock}>
         <input type="hidden" name="redirectTo" value={from} />
         <div className={formstyles.formGroup}>
           <label htmlFor="email">Username</label>
@@ -108,6 +110,9 @@ const Register = () => {
             {isLoggingIn ? "Sending..." : "Sign up"}
           </button>
         </div>
+        <p className={formstyles.alreadyHave}>
+          Already have an account? Then <a href="/auth/login">login</a>
+        </p>
       </Form>
     </section>
   );

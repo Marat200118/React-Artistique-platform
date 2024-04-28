@@ -45,12 +45,12 @@ const Login = () => {
 
   let actionData = useActionData();
   return (
-    <section className={style.loginSection}>
-      <hgroup className={style.header}>
-        <h2>Log in</h2>
+    <section className={formstyles.loginSection}>
+      <hgroup className={formstyles.header}>
+        <h2>Welcome<br></br> Back!</h2>
         <p>Get access to all the features</p>
       </hgroup>
-      <Form method="post">
+      <Form method="post" className={formstyles.formBlock}>
         <input type="hidden" name="redirectTo" value={from} />
         <div className={formstyles.formGroup}>
           <label htmlFor="email">Email</label>
@@ -80,7 +80,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={isLoggingIn}
-            className={actionData && actionData.error ? style.shake : null}
+            className={actionData && actionData.error ? formstyles.shake : null}
           >
             {isLoggingIn ? "Logging in..." : "Login"}
           </button>

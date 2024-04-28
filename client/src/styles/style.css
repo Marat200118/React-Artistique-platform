@@ -33,10 +33,17 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-
-
   --container-size: 85rem;
   --main-font: "Exo 2", sans-serif;
+  --manrope: "Manrope", sans-serif;
+
+
+  --my-regular-green: #00ab64;
+  --my-light-green: #7AE582;
+  --my-persian-green: #25A18E;
+  --my-aqua-green: #9FFFCB;
+  --my-blue: #00A5CF;
+  --my-dark-blue: #004E64;
 }
 
 body {
@@ -59,7 +66,7 @@ h1 {
   font-family: var(--main-font);
   font-size: 3.2em;
   line-height: 1.1;
-  color: #242424;
+  color: var(--my-dark-blue);
   opacity: 60%;
   font-weight: 400;
   max-inline-size: none;
@@ -69,7 +76,7 @@ h2 {
   font-family: var(--main-font);
   font-size: 2.8em;
   line-height: 1.1;
-  color: #363636;
+  color: var(--my-dark-blue);
   font-weight: 900;
 
 }
@@ -83,10 +90,6 @@ a {
   transition: all 0.25s;
 }
 
-a:hover {
-  color: #535bf2;
-}
-
 p {
   color: #242424;
 }
@@ -97,14 +100,39 @@ svg {
   height: 60vh;
 }
 
+label {
+  font-family: var(--manrope);
+}
+
+.switchThemeButton {
+  cursor: pointer;
+  background-color: transparent;
+  color: #004E64;
+  border: 1px solid #0085e5;
+
+  &:hover {
+    background-color: #0085e5;
+    color: #f5f5f5;
+  }
+}
+
+.saveArtworkButton {
+  background-color: var(--my-regular-green);
+
+  &:hover {
+    background-color: var(--my-light-green);
+  }
+}
+
+
 button {
-  font-family: "Manrope", sans-serif;
+  font-family: var(--manrope);
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
-  font-weight: 500;
-  background-color: #0085e5;
+  font-weight: 700;
+  background-color: var(--my-blue);
   color: #f5f5f5;
   cursor: pointer;
   transition: all 0.25s;
@@ -114,13 +142,23 @@ button {
 
 button:hover {
   /* border-color: #18d000; */
-  background-color: #0195ff; ;
+  background-color: #0d2b91;
+  scale: 1.05;
+  color: inherit;
 }
 
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+
+.get-started-button a {
+  color: #f5f5f5;
+  text-decoration: none;
+  font-weight: 700;
+}
+
 
 /* 
 @media (prefers-color-scheme: light) {
@@ -162,15 +200,6 @@ button:focus-visible {
   }
 } */
 
-
-.switchThemeButton {
-  cursor: pointer;
-  /* color: #242424; */
-}
-
-.saveArtworkButton {
-  background-color: #18d000;
-}
 
 .slider-container {
   margin: 20px 0;
@@ -251,6 +280,7 @@ label {
 
 .buttons {
   display: flex;
+  align-items: center;
   flex-direction: column;
   gap: 3rem;
   margin-top: 2rem;
@@ -281,16 +311,6 @@ label {
   gap: 2rem;
   flex-direction: column;
 }
-
-.get-started-button {
-  font-weight: 700;
-}
-
-.get-started-button a {
-  color: #f5f5f5;
-  text-decoration: none;
-}
-
 
 .artwork-preview {
   display: flex;

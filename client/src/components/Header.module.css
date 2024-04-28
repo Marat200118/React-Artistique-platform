@@ -14,6 +14,26 @@
 }
 
 .loginButton {
+  font-weight: 700;
+  /* background-color: var(--my-persian-green); */
+  color: var(--my-dark-blue);
+  text-decoration: underline;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  /* text-decoration: none; */
+  display: inline-block;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+
+  &:hover {
+    color: black;
+  }
+}
+
+.signupButton {
+  font-weight: 700;
   background-color: #00ab64;
   color: white;
   border: none;
@@ -21,32 +41,14 @@
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
   border-radius: 5px;
-}
 
-.signupButton {
-  background-color: #0439f7;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.signupButton:hover {
-  background-color: #0d2b91;
-  color: white;
-}
-
-.loginButton:hover {
-  background-color: #007444;
-  color: white;
+  &:hover {
+    background-color: #007846;
+    color: white;
+  }
 }
 
 .logo a {
