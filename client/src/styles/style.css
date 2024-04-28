@@ -119,8 +119,32 @@ label {
 .saveArtworkButton {
   background-color: var(--my-regular-green);
 
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   &:hover {
     background-color: var(--my-light-green);
+  }
+}
+
+.signupButton {
+  font-weight: 700;
+  background-color: #00ab64;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #007846;
+    color: white;
   }
 }
 
@@ -142,9 +166,9 @@ button {
 
 button:hover {
   /* border-color: #18d000; */
-  background-color: #0d2b91;
-  scale: 1.05;
-  color: inherit;
+  background-color: #4a74ff;
+  /* scale: 1.05; */
+  color: #f5f5f5;
 }
 
 button:focus,
@@ -315,7 +339,12 @@ label {
 .artwork-preview {
   display: flex;
   flex-direction: column;
+  transition: .3s all;
   /* flex: 1 0 25%; */
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+  }
 }
 
 .artwork-preview svg {
@@ -324,9 +353,40 @@ label {
   border-radius: 1rem;
 }
 
-.artworks-container {
+.artworks-container, .artworks-collection {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   flex-wrap: wrap;
+}
+
+.unable-save-message p {
+  color: red;
+}
+
+.log-in-helper {
+  font-weight: 700;
+  /* background-color: var(--my-persian-green); */
+  color: var(--my-dark-blue);
+  text-decoration: underline;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  /* text-decoration: none; */
+  display: inline-block;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+
+  &:hover {
+    color: black;
+  }
+}
+
+.my-artworks {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
 }

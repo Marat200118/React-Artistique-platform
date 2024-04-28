@@ -17,14 +17,13 @@ const Profile = () => {
       <h1>Profile</h1>
       <p>Username: {profile.username}</p>
       <h2>My Artworks</h2>
-      <ul>
+      <div className="my-artworks">
         {profile.artworks.map((artwork) => (
           <li key={artwork.id}>
-            {/* Remove the Link here, ArtworkPreview should handle its own linking */}
             <ArtworkPreview key={artwork.id} artwork={artwork} />
           </li>
         ))}
-      </ul>
+      </div>
     </article>
   );
 };

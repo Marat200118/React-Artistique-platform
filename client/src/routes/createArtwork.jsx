@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 import '../styles/style.css';
 import LinePatternGenerator from '../components/LinePatternGenerator';
 import Controller from '../components/Controller'; 
-import {Form, redirect, useLoaderData} from 'react-router-dom';
+import {Form, redirect, useLoaderData, Link } from 'react-router-dom';
 import { createArtwork, getArtworks } from '../services/artwork';
-import '../components/ArtworkPreview';
 import ArtworkPreview from '../components/ArtworkPreview';
+import { getAuthData } from '../services/auth';
 
 
 const action = async ({ request }) => {
@@ -32,20 +32,19 @@ const action = async ({ request }) => {
 
 const loader = async () => {
   const artworks = await getArtworks();
+  const user = await getAuthData();
   console.log("Loaded artworks:", artworks);
-  return { artworks };
+  return { artworks, user };
 };
 
-  const getRandomColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
-  const color1 = getRandomColor();
-  const color2 = getRandomColor();
+const getRandomColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+const color1 = getRandomColor();
+const color2 = getRandomColor();
 
 
 const CreateArtwork = () => {
 
-  // const getRandomColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
   const getRandomInRange = (min, max) => Math.random() * (max - min) + min;
-  
   const [svg, setSvg] = useState ({
     strokeWidth: getRandomInRange(0.05, 1),
     lineCount: Math.round(Math.random() * 150),
@@ -118,11 +117,13 @@ const CreateArtwork = () => {
   };
  
   const { strokeWidth, lineCount, angle, startColor, endColor, theme } = svg;
-  const svgBackgroundColor = svg.theme === 'dark' ? '#1C1D1E' : '#F2F2F2';
+  // const svgBackgroundColor = svg.theme === 'dark' ? '#1C1D1E' : '#F2F2F2';
   const textColor = svg.theme === 'dark' ? '#F7F7F7' : '#1C1D1E';
 
+  const { artworks, user } = useLoaderData();
+  const isLogged = user && user.jwt;
+  const artworkDisplayCount = 8;
 
-  const { artworks } = useLoaderData();
   return (
     <>
     <div className="Generator-module" style={{ color: textColor }}>
@@ -149,7 +150,13 @@ const CreateArtwork = () => {
             <button onClick={switchTheme} className='switchThemeButton'>Switch Theme</button>
             <Form method="POST">
               <input type="hidden" name="data" value={JSON.stringify({...svg, starsAttributes})} readOnly={true} />
-              <button className='saveArtworkButton' type='submit'>Save Artwork</button>
+              <button className='saveArtworkButton' type='submit' disabled={!isLogged}>Save Artwork</button>
+              {!isLogged && (
+                <div className='unable-save-message'>
+                  <p>You need to be logged in to save your artwork.</p>
+                  <Link to='/auth/login' className='log-in-helper'>Log in</Link>
+                </div>
+               )}
             </Form>
           </div>
         </div>
@@ -157,15 +164,14 @@ const CreateArtwork = () => {
     </div>
     
     <div className='saved-artworks'>
-      <h2>Saved Artworks</h2>
+      <h2>Explore other Artworks</h2>
       <div className='artworks-container'>
-        {artworks.map(artwork => (
+        {artworks.slice(0, artworkDisplayCount).map(artwork => (
           <ArtworkPreview key={artwork.id} artwork={artwork} />
         ))}
       </div>
+      <Link to='/artwork-collection' className='signupButton'>Explore more</Link>
     </div>
-
-
     </>
   );
 }

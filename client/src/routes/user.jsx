@@ -1,29 +1,32 @@
-//user.jsx
-
-import { useLoaderData } from 'react-router-dom';
-import { getUserById } from '../services/user.js';
+import { getUserById } from "../services/user";
+import { Link, useLoaderData } from "react-router-dom";
 
 const loader = async ({ params }) => {
-  const { id } = params;
-  const user = await getUserById(id);
+  const user = await getUserById(params.id);
   return { user };
-}
-
+};
 
 const User = () => {
-
-  const user = useLoaderData();
-
+  const { user } = useLoaderData();
   return (
-    <div>
-      <h1>User</h1>
-      <dl>
-        <dt>Name</dt>
-        <dd>{user.username}</dd>
-      </dl>
-    </div>
+    <>
+      <h2>{user.username}</h2>
+      <p>User since {user.createdAt}</p>
+
+      <section>
+        <h3>Artworks</h3>
+        <ul>
+          {user.artworks.map((artwork) => (
+            <li key={artwork.id}>
+              <Link to={`/artwork/detail/${artwork.id}`}>{artwork.name}</Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </>
   );
-}
+};
 
 User.loader = loader;
+
 export default User;

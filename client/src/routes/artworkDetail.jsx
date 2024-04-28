@@ -17,7 +17,10 @@ const ArtworkDetail = () => {
     <div>
       <h1>{name}</h1>
       {
-        artwork.owner.data && <p>Owner: {artwork.owner.data.attributes.username}</p>
+        artwork.owner.data && 
+        <p>
+          Owner: {artwork.owner.data.attributes.username}
+        </p>
       }
       <LinePatternGenerator
         strokeWidth={strokeWidth}
@@ -25,7 +28,7 @@ const ArtworkDetail = () => {
         endColor={endColor}
         svgBackgroundColor={svgBackgroundColor}
         starsAttributes={JSON.parse(starsAttributes)}
-        previewMode={false}  // Assuming you want the full detail view not to be a small preview
+        previewMode={false}
       />
     </div>
   );

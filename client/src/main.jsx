@@ -12,6 +12,8 @@ import Login from "./routes/auth/login";
 import ArtworkDetail from "./routes/artworkDetail";
 import Profile from "./routes/auth/profile";
 import Register from "./routes/auth/register";
+import User from "./routes/user";
+import ArtworksCollection from "./routes/artworksCollection";
 // import { getAuthData } from './services/auth';
 
 const router = createBrowserRouter([
@@ -49,6 +51,16 @@ const router = createBrowserRouter([
         element: <Register />,
         action: Register.action,
       },
+      {
+        path: "/user/:id",
+        element: <User />,
+        loader: User.loader,
+      },
+      {
+        path: "/artwork-collection",
+        element: <ArtworksCollection />,
+        loader: ArtworksCollection.loader,
+      }
     ],
   },
 ]);

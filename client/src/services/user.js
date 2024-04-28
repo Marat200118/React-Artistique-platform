@@ -1,3 +1,5 @@
+//user.js
+
 import { fetchApi } from "./strapi";
 
 const getUserById = async (id) => {

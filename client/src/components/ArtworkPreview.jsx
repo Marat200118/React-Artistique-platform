@@ -28,7 +28,7 @@ const ArtworkPreview = ({ artwork }) => {
           id={`artwork-${id}`}
         />
         <p>{name}</p>
-        {ownerUsername && <p>Owner: {ownerUsername}</p>}
+        {ownerUsername && <p>Owner:  <Link to = {ownerUsername ? `/user/${owner.data.id}` : '/'}> {ownerUsername ? ownerUsername : 'Anonymous'}</Link></p>}
       </Link>
     </div>
   );
