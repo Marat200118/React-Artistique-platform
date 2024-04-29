@@ -3,11 +3,13 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import { getAuthData } from "../services/auth";
+import { getMe } from "../services/auth";
 
 const loader = async () => {
   const user = await getAuthData();
-  console.log("Loaded user:", user);
-  return { user };
+  const profile = await getMe();
+  console.log("Loaded user:", user, profile);
+  return { user, profile };
 };
 
 const Root = () => {

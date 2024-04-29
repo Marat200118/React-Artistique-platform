@@ -2,9 +2,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import LinePatternGenerator from './LinePatternGenerator';
-import { getArtworkById } from '../services/artwork';
+import { deleteArtwork } from '../services/artwork';
+import { getAuthData } from '../services/auth';
 
 
 const ArtworkPreview = ({ artwork }) => {
@@ -13,6 +14,21 @@ const ArtworkPreview = ({ artwork }) => {
   const parsedStarsAttributes = typeof starsAttributes === 'string' ? JSON.parse(starsAttributes) : starsAttributes;
 
   const ownerUsername = owner?.data?.attributes?.username;
+  const loggedInUser = getAuthData();
+  const isOwner = loggedInUser?.user?.id === owner?.data?.id;
+  console.log('isOwner', isOwner);
+
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this artwork?')) {
+      try {
+        await deleteArtwork(id);
+        window.location.reload(); 
+      } catch (error) {
+        console.error('Failed to delete artwork:', error);
+      }
+    }
+  };
+
 
 
   return (
@@ -27,6 +43,14 @@ const ArtworkPreview = ({ artwork }) => {
           previewMode={true}
           id={`artwork-${id}`}
         />
+        {isOwner && (
+        <>
+          <div className='edit-delete-buttons'>
+            <Link to={`/edit-artwork/${artwork.id}`} className='log-in-helper'>Edit</Link>
+            <button onClick={() => handleDelete(artwork.id)} className='delete-button'>Delete</button>
+          </div>
+        </>
+      )}
         <p>{name}</p>
         {ownerUsername && <p>Owner:  <Link to = {ownerUsername ? `/user/${owner.data.id}` : '/'}> {ownerUsername ? ownerUsername : 'Anonymous'}</Link></p>}
       </Link>

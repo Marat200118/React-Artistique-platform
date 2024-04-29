@@ -15,7 +15,7 @@ const getArtworks = async () => {
 const getArtworkById = async (id) => {
   const artwork = await fetchApi({
     endpoint: `artworks/${id}`,
-    query: { populate: ["owner"] },
+    query: { populate: ["owner, owner.picture"] },
     wrappedByKey: "data",
   });
   return unwrapAtributes(artwork);
@@ -38,4 +38,21 @@ const createArtwork = async (data) => {
   return response;
 };
 
-export { getArtworkById, createArtwork, getArtworks };
+const deleteArtwork = async (id) => {
+  const response = await fetchApi(
+    `${import.meta.env.VITE_STRAPI_URL}/api/artworks/${id}`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to delete the artwork.");
+  }
+  return response;
+};
+
+export { getArtworkById, createArtwork, getArtworks, deleteArtwork };

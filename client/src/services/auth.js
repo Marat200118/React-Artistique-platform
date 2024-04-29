@@ -1,4 +1,4 @@
-//auth.js
+//services/auth.js
 
 const AUTH_DATA = "auth-data-react-platform";
 

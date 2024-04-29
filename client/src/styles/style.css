@@ -196,6 +196,15 @@ button:focus-visible {
   font-weight: 700;
 }
 
+.delete-button {
+  background-color: #ff0000; ; 
+  color: #f5f5f5;
+
+  &:hover {
+    background-color: #ff0000;
+  }
+}
+
 
 /* 
 @media (prefers-color-scheme: light) {
@@ -420,4 +429,34 @@ label {
 
 .profile-text {
   text-align: left;
+}
+
+.owner-profile-picture {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+.artwork-owner-detail {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.artwork-preview a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.artwork-preview p {
+  display: flex;
+  flex-direction: row;
+}
+
+.edit-delete-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
