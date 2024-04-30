@@ -85,7 +85,6 @@ export const getMe = async () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getToken()}`,
       },
-      // populate: ["*"],
     }
   ).then((res) => res.json());
 

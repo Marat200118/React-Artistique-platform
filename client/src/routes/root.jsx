@@ -7,9 +7,13 @@ import { getMe } from "../services/auth";
 
 const loader = async () => {
   const user = await getAuthData();
-  const profile = await getMe();
-  console.log("Loaded user:", user, profile);
-  return { user, profile };
+  console.log("Root user:", user);
+  if ( !user.jwt) {
+    return { user };
+  } else {
+    const profile = await getMe();
+    return { user, profile };
+  }
 };
 
 const Root = () => {

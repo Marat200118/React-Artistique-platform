@@ -38,9 +38,28 @@ const createArtwork = async (data) => {
   return response;
 };
 
+const updateArtwork = async (id, data) => {
+  const response = await fetchApi(
+    {
+      endpoint: `artworks/${id}`,
+    },
+    {
+      method: "PUT",
+      body: JSON.stringify({ data }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+    }
+  );
+  return response;
+};
+
 const deleteArtwork = async (id) => {
   const response = await fetchApi(
-    `${import.meta.env.VITE_STRAPI_URL}/api/artworks/${id}`,
+    {
+      endpoint: `artworks/${id}`,
+    },
     {
       method: "DELETE",
       headers: {
@@ -55,4 +74,10 @@ const deleteArtwork = async (id) => {
   return response;
 };
 
-export { getArtworkById, createArtwork, getArtworks, deleteArtwork };
+export {
+  getArtworkById,
+  createArtwork,
+  getArtworks,
+  deleteArtwork,
+  updateArtwork,
+};

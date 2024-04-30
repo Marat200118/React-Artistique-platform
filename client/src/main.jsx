@@ -14,6 +14,7 @@ import Profile from "./routes/auth/profile";
 import Register from "./routes/auth/register";
 import User from "./routes/user";
 import ArtworksCollection from "./routes/artworksCollection";
+import EditArtwork from "./routes/editArtwork";
 // import { getAuthData } from './services/auth';
 
 const router = createBrowserRouter([
@@ -60,7 +61,12 @@ const router = createBrowserRouter([
         path: "/artwork-collection",
         element: <ArtworksCollection />,
         loader: ArtworksCollection.loader,
-      }
+      },
+      {
+        path: "/edit-artwork/:id",
+        element: <EditArtwork />,
+        loader: EditArtwork.loader,
+      },
     ],
   },
 ]);

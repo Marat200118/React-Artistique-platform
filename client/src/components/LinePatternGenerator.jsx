@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 const LinePatternGenerator = ({ strokeWidth, startColor, endColor, svgBackgroundColor, starsAttributes, previewMode, id }) => {
 
-  //trying to porevent cross-co ntamination between svgs
   const uniqueId = id || uuidv4(); 
 
 

@@ -14,6 +14,10 @@ const action = async ({ request }) => {
   const formData = await request.formData();
   const data = JSON.parse(formData.get('data'));
 
+  if (!data.name || data.name.trim() === '') {
+    return { error: 'Artwork name is required.' };
+  }
+
   const payload = {
     angle: data.angle,
     strokeWidth: data.strokeWidth,
@@ -21,7 +25,7 @@ const action = async ({ request }) => {
     startColor: data.startColor,
     endColor: data.endColor,
     starsAttributes: JSON.stringify(data.starsAttributes),
-    name: `Artwork_${Date.now()}`,
+    name: '',
     svgBackgroundColor: data.svgBackgroundColor
   };
 
@@ -117,8 +121,28 @@ const CreateArtwork = () => {
   };
  
   const { strokeWidth, lineCount, angle, startColor, endColor, theme } = svg;
-  // const svgBackgroundColor = svg.theme === 'dark' ? '#1C1D1E' : '#F2F2F2';
   const textColor = svg.theme === 'dark' ? '#F7F7F7' : '#1C1D1E';
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setSvg({...svg, [name]: value});
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!svg.name.trim()) {
+      alert('Please provide a name for the artwork.');
+      return;
+    }
+
+    const payload = {
+      ...svg,
+      starsAttributes: JSON.stringify(svg.starsAttributes)
+    };
+    console.log("Sending payload:", payload);
+    await createArtwork(payload);
+    // redirect after creating the artwork
+  };
 
   const { artworks, user } = useLoaderData();
   const isLogged = user && user.jwt;
@@ -135,7 +159,16 @@ const CreateArtwork = () => {
           svgBackgroundColor={svg.svgBackgroundColor}
           starsAttributes={starsAttributes}
         />
+        
         <div className='pattern-controlls'>
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter artwork name"
+            value={svg.name}
+            onChange={handleInputChange}
+            required
+          />
           <Controller
             angle={angle}
             strokeWidth={strokeWidth}
@@ -148,8 +181,9 @@ const CreateArtwork = () => {
 
           <div className='buttons'>
             <button onClick={switchTheme} className='switchThemeButton'>Switch Theme</button>
-            <Form method="POST">
+            <Form method="POST" onSubmit={handleSubmit}>
               <input type="hidden" name="data" value={JSON.stringify({...svg, starsAttributes})} readOnly={true} />
+    
               <button className='saveArtworkButton' type='submit' disabled={!isLogged}>Save Artwork</button>
               {!isLogged && (
                 <div className='unable-save-message'>

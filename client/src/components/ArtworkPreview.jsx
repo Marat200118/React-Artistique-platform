@@ -11,12 +11,12 @@ import { getAuthData } from '../services/auth';
 const ArtworkPreview = ({ artwork }) => {
   const { id, strokeWidth, startColor, endColor, svgBackgroundColor, starsAttributes, name, owner } = artwork;
 
-  const parsedStarsAttributes = typeof starsAttributes === 'string' ? JSON.parse(starsAttributes) : starsAttributes;
+  const parsedStarsAttributes = starsAttributes ? (typeof starsAttributes === 'string' ? JSON.parse(starsAttributes) : starsAttributes) : [];
 
   const ownerUsername = owner?.data?.attributes?.username;
   const loggedInUser = getAuthData();
   const isOwner = loggedInUser?.user?.id === owner?.data?.id;
-  console.log('isOwner', isOwner);
+  // console.log('isOwner', isOwner);
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this artwork?')) {
@@ -28,8 +28,6 @@ const ArtworkPreview = ({ artwork }) => {
       }
     }
   };
-
-
 
   return (
     <div className="artwork-preview">
@@ -43,17 +41,17 @@ const ArtworkPreview = ({ artwork }) => {
           previewMode={true}
           id={`artwork-${id}`}
         />
-        {isOwner && (
-        <>
-          <div className='edit-delete-buttons'>
-            <Link to={`/edit-artwork/${artwork.id}`} className='log-in-helper'>Edit</Link>
-            <button onClick={() => handleDelete(artwork.id)} className='delete-button'>Delete</button>
-          </div>
-        </>
-      )}
-        <p>{name}</p>
-        {ownerUsername && <p>Owner:  <Link to = {ownerUsername ? `/user/${owner.data.id}` : '/'}> {ownerUsername ? ownerUsername : 'Anonymous'}</Link></p>}
+          {/* {isOwner && (
+          <>
+            <div className='edit-delete-buttons'>
+              <Link to={`/edit-artwork/${artwork.id}`} className='log-in-helper'>Edit</Link>
+              <button onClick={() => handleDelete(artwork.id)} className='delete-button'>Delete</button>
+            </div>
+          </>
+        )} */}     
       </Link>
+      <p>{name}</p>
+      {ownerUsername && <p>Owner:  <Link to = {ownerUsername ? `/user/${owner.data.id}` : '/'}> {ownerUsername ? ownerUsername : 'Anonymous'}</Link></p>}
     </div>
   );
 };
@@ -72,7 +70,7 @@ ArtworkPreview.propTypes = {
         y1: PropTypes.number.isRequired,
         x2: PropTypes.number.isRequired,
         y2: PropTypes.number.isRequired,
-      }))
+      })),
     ]).isRequired,
     name: PropTypes.string.isRequired,
     owner: PropTypes.shape({

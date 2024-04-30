@@ -19,7 +19,6 @@ module.exports = createCoreService("api::artwork.artwork", ({ strapi }) => ({
           owner: {
             set: [user.id],
           },
-          publishedAt: new Date(),
         },
       }
     );
