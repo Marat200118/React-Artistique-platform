@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
-import { useNavigate, useLoaderData, useParams, Link, Form } from 'react-router-dom';
+import { useNavigate, useLoaderData, Link, Form, redirect } from 'react-router-dom';
 import { getArtworkById, updateArtwork } from '../services/artwork';
 import LinePatternGenerator from '../components/LinePatternGenerator';
 import Controller from '../components/Controller';
+import { getAuthData } from '../services/auth';
 
 const loader = async ({ params }) => {
   const artwork = await getArtworkById(params.id);
-  return { artwork };
+  const { user } = getAuthData();
+
+  if (artwork.owner.data.id !== user.id) {
+    return redirect('/');
+  }
+
+  return { artwork, user };
 };
 
 const EditArtwork = () => {
@@ -23,36 +30,9 @@ const EditArtwork = () => {
     lineCount: artwork.lineCount
   });
 
-  const [starsAttributes, setStarsAttributes] = useState(JSON.parse(artwork.starsAttributes));
 
   const onColorChange = (colorType, color) => {
     setSvg(prevSvg => ({ ...prevSvg, [colorType]: color }));
-  };
-
-  const generateStarsAttributes = (count) => {
-    return Array.from({ length: count }, () => {
-      const x1 = Math.random() * 120 - 10; 
-      const y1 = Math.random() * 100; 
-      const lineLength = Math.random() * (100 - 30) + 30;
-      const angleRad = svg.angle * (Math.PI / 180); 
-      const x2 = x1 + lineLength * Math.cos(angleRad);
-      const y2 = y1 + lineLength * Math.sin(angleRad);
-      return { x1, y1, x2, y2, originalLength: lineLength };
-    });
-  };
-
-  const handleLineCountChange = (newCount) => {
-    setSvg(prevSvg => ({ ...prevSvg, lineCount: newCount }));
-    setStarsAttributes(currentStars => {
-      const currentCount = currentStars.length;
-      if (newCount > currentCount) {
-        const additionalStars = generateStarsAttributes(newCount - currentCount);
-        return [...currentStars, ...additionalStars];
-      } else if (newCount < currentCount) {
-        return currentStars.slice(0, newCount);
-      }
-      return currentStars;
-    });
   };
 
   const handleInputChange = (event) => {
@@ -60,25 +40,6 @@ const EditArtwork = () => {
     setSvg(prevSvg => ({ ...prevSvg, [name]: value }));
   };
 
-
-  // const handleSliderChange = (property, value) => {
-  //   const numericValue = Number(value);
-  //   if (property === 'lineCount') {
-  //     handleLineCountChange(numericValue);
-  //   } else {
-  //     setSvg(prevSvg => ({ ...prevSvg, [property]: numericValue }));
-  //     if (property === 'angle') {
-       
-  //       setStarsAttributes(stars => stars.map(star => {
-  //           const lineLength = Math.random() * (100 - 30) + 30;; 
-  //         const angleRad = numericValue * (Math.PI / 180);
-  //         const x2 = star.x1 + lineLength * Math.cos(angleRad);
-  //         const y2 = star.y1 + lineLength * Math.sin(angleRad);
-  //         return { ...star, x2, y2, originalLength: lineLength };
-  //       }));
-  //     }
-  //   }
-  // };
 
   const handleSliderChange = (property, value) => {
     const numericValue = Number(value);
@@ -104,34 +65,43 @@ const EditArtwork = () => {
     <div>
       <h1>Edit Artwork</h1>
       <Form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Enter artwork name"
-          value={svg.name}
-          onChange={handleInputChange}
-          required
-        />
-        <Controller
-          angle={svg.angle}
-          strokeWidth={svg.strokeWidth}
-          lineCount={svg.lineCount}
-          startColor={svg.startColor}
-          endColor={svg.endColor}
-          onSliderChange={handleSliderChange}
-          onColorChange={onColorChange}
-        />
-        <LinePatternGenerator
-          strokeWidth={svg.strokeWidth}
-          startColor={svg.startColor}
-          endColor={svg.endColor}
-          svgBackgroundColor={svg.svgBackgroundColor}
-          starsAttributes={starsAttributes}
-          previewMode={false}
-        />
-        <button type="submit">Save Changes</button>
+        <div className='pattern-controlls-container'>
+          <LinePatternGenerator
+            strokeWidth={svg.strokeWidth}
+            startColor={svg.startColor}
+            endColor={svg.endColor}
+            svgBackgroundColor={svg.svgBackgroundColor}
+            starsAttributes={svg.starsAttributes}
+            previewMode={false}
+          />
+          <div className='pattern-controlls'>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter artwork name"
+              value={svg.name}
+              onChange={handleInputChange}
+              required
+            />
+            <Controller
+              angle={svg.angle}
+              strokeWidth={svg.strokeWidth}
+              lineCount={svg.lineCount}
+              startColor={svg.startColor}
+              endColor={svg.endColor}
+              onSliderChange={handleSliderChange}
+              onColorChange={onColorChange}
+            />
+            <div className='buttons'>
+              <button type="submit">Save Changes</button>
+              <Link to={`/artwork/detail/${artwork.id}`}>Cancel</Link>
+            </div>
+  
+          </div>
+        </div>
+
       </Form>
-      <Link to={`/artwork/detail/${artwork.id}`}>Cancel</Link>
+      
     </div>
   );
 };

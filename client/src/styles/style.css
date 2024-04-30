@@ -310,6 +310,17 @@ label {
   outline: none;
 }
 
+input[type=text] {
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: .4rem;
+  border: 2px solid var(--my-persian-green);
+  background-color: #f8f8f8;
+  color: #333;
+  transition: border-color 0.3s;
+  width: 20rem;
+}
+
 .slider-container label {
   display: block;
   margin-bottom: 10px;

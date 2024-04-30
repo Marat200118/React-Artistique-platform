@@ -11,7 +11,7 @@ import { getAuthData } from '../services/auth';
 const ArtworkPreview = ({ artwork }) => {
   const { id, strokeWidth, startColor, endColor, svgBackgroundColor, starsAttributes, name, owner } = artwork;
 
-  const parsedStarsAttributes = starsAttributes ? (typeof starsAttributes === 'string' ? JSON.parse(starsAttributes) : starsAttributes) : [];
+ const parsedStarsAttributes = typeof starsAttributes === 'string' ? JSON.parse(starsAttributes) : starsAttributes;
 
   const ownerUsername = owner?.data?.attributes?.username;
   const loggedInUser = getAuthData();
@@ -70,7 +70,7 @@ ArtworkPreview.propTypes = {
         y1: PropTypes.number.isRequired,
         x2: PropTypes.number.isRequired,
         y2: PropTypes.number.isRequired,
-      })),
+      }))
     ]).isRequired,
     name: PropTypes.string.isRequired,
     owner: PropTypes.shape({

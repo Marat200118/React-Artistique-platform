@@ -5,7 +5,7 @@ import '../styles/style.css';
 import LinePatternGenerator from '../components/LinePatternGenerator';
 import Controller from '../components/Controller'; 
 import {Form, redirect, useLoaderData, Link } from 'react-router-dom';
-import { createArtwork, getArtworks } from '../services/artwork';
+import { createArtwork, getArtworks, randomWord } from '../services/artwork';
 import ArtworkPreview from '../components/ArtworkPreview';
 import { getAuthData } from '../services/auth';
 
@@ -13,10 +13,7 @@ import { getAuthData } from '../services/auth';
 const action = async ({ request }) => {
   const formData = await request.formData();
   const data = JSON.parse(formData.get('data'));
-
-  if (!data.name || data.name.trim() === '') {
-    return { error: 'Artwork name is required.' };
-  }
+  const word = await randomWord();
 
   const payload = {
     angle: data.angle,
@@ -25,7 +22,7 @@ const action = async ({ request }) => {
     startColor: data.startColor,
     endColor: data.endColor,
     starsAttributes: JSON.stringify(data.starsAttributes),
-    name: '',
+    name: word,
     svgBackgroundColor: data.svgBackgroundColor
   };
 
@@ -35,7 +32,7 @@ const action = async ({ request }) => {
 }
 
 const loader = async () => {
-  const artworks = await getArtworks();
+  const artworks = await getArtworks(); 
   const user = await getAuthData();
   console.log("Loaded artworks:", artworks);
   return { artworks, user };
@@ -161,14 +158,6 @@ const CreateArtwork = () => {
         />
         
         <div className='pattern-controlls'>
-          <input
-            type="text"
-            name="name"
-            placeholder="Enter artwork name"
-            value={svg.name}
-            onChange={handleInputChange}
-            required
-          />
           <Controller
             angle={angle}
             strokeWidth={strokeWidth}
@@ -181,7 +170,7 @@ const CreateArtwork = () => {
 
           <div className='buttons'>
             <button onClick={switchTheme} className='switchThemeButton'>Switch Theme</button>
-            <Form method="POST" onSubmit={handleSubmit}>
+            <Form method="POST">
               <input type="hidden" name="data" value={JSON.stringify({...svg, starsAttributes})} readOnly={true} />
     
               <button className='saveArtworkButton' type='submit' disabled={!isLogged}>Save Artwork</button>
@@ -215,5 +204,4 @@ CreateArtwork.action = action;
 CreateArtwork.loader = loader;
 
 export default CreateArtwork;
-
 

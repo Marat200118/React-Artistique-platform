@@ -8,7 +8,6 @@ const getArtworks = async () => {
     query: { populate: ["owner"] },
   });
   if (!response || !response.data) return [];
-  console.log("Artworks fetched:", response.data);
   return response.data.map(unwrapAtributes);
 };
 
@@ -68,10 +67,18 @@ const deleteArtwork = async (id) => {
       },
     }
   );
-  if (!response.ok) {
-    throw new Error("Failed to delete the artwork.");
-  }
   return response;
+};
+
+const randomWord = async () => {
+  const url = "https://api.api-ninjas.com/v1/randomword";
+  const headers = new Headers({
+    "X-Api-Key": "h0chLHEl9ByoleRfG8q0bA==SjkAcGZuDZNj2nC8",
+    "Content-Type": "application/json",
+  });
+  const response = await fetch(url, { headers });
+  const data = await response.json();
+  return data.word;
 };
 
 export {
@@ -80,4 +87,5 @@ export {
   getArtworks,
   deleteArtwork,
   updateArtwork,
+  randomWord,
 };

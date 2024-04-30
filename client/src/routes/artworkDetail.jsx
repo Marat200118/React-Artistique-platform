@@ -26,18 +26,18 @@ const ArtworkDetail = () => {
    const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this artwork?')) {
       await deleteArtwork(artwork.id);
+      navigate('/auth/profile');
       console.log('Artwork deleted');
-      navigate('/');
     }
   };
 
-  console.log(isOwner);
+  // console.log(isOwner);
 
-  if (ownerUsername === profileUsername) {
-    console.log('You are the owner of this artwork');
-  } else {
-    console.log('You are not the owner of this artwork');
-  }
+  // if (ownerUsername === profileUsername) {
+  //   console.log('You are the owner of this artwork');
+  // } else {
+  //   console.log('You are not the owner of this artwork');
+  // }
   return (
     <>
       <div>
