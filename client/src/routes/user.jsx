@@ -2,6 +2,7 @@
 
 import { getUserById } from "../services/user";
 import { Link, useLoaderData } from "react-router-dom";
+import ArtworkPreview from "../components/ArtworkPreview";
 
 const loader = async ({ params }) => {
   const user = await getUserById(params.id);
@@ -18,13 +19,14 @@ const User = () => {
       <img src={imageUrl} alt="avatar" className="large-profile-pic" />
 
       <section>
-        <h3>Artworks</h3>
+        <h2>{user.username}'s Artworks</h2>
         <ul>
-          {user.artworks.map((artwork) => (
-            <li key={artwork.id}>
-              <Link to={`/artwork/detail/${artwork.id}`}>{artwork.name}</Link>
-            </li>
-          ))}
+          <div className="artworks-collection">
+            {user.artworks.map((artwork) => (
+              <ArtworkPreview key={artwork.id} artwork={artwork} />
+            ))}
+          </div>
+
         </ul>
       </section>
     </>

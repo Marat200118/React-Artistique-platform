@@ -68,6 +68,7 @@ h1 {
   line-height: 1.1;
   color: var(--my-dark-blue);
   opacity: 60%;
+  margin-top: 0;
   font-weight: 400;
   max-inline-size: none;
 }
@@ -452,8 +453,7 @@ input[type=text] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
+  justify-content: space-around;
 }
 
 .artwork-preview a {
@@ -485,4 +485,88 @@ input[type=text] {
   flex-direction: column;
   justify-content: space-around;
   gap: 1rem;
+}
+
+.tags {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tag {
+  background-color: var(--my-light-green);
+  font-family: var(--manrope);
+  font-size: 12px;
+  font-weight: 500;
+  color: #242424;
+  padding: 0.5rem 2.5rem;
+  border-radius: 0.5rem;
+  flex: 25%;
+}
+
+.tags-ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.tag button {
+  background-color: var(--my-light-green);
+  width: 2rem;
+  color: #242424;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s;
+  min-width: auto;
+}
+
+.tag-add {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  max-width: max-content;
+  padding: 0.3rem 1rem;
+  flex: 25%;
+}
+
+.tags-list {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.list-collection {
+  margin-top: 0rem;
+  margin-bottom: 2rem;
+}
+
+.tags-container {
+  margin-top: 1rem;
+}
+
+.tag-button {
+  background-color: var(--my-light-green);
+  color: #242424;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s;
+  min-width: auto;
+}
+
+.success-message {
+  display: none;
+}
+
+.success-message p {
+  color: var(--my-regular-green);
+  font-size: 2rem;
+  font-weight: 700;
+
 }

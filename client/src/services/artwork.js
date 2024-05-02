@@ -14,7 +14,7 @@ const getArtworks = async () => {
 const getArtworkById = async (id) => {
   const artwork = await fetchApi({
     endpoint: `artworks/${id}`,
-    query: { populate: ["owner, owner.picture"] },
+    query: { populate: ["owner", "owner.picture"] },
     wrappedByKey: "data",
   });
   return unwrapAtributes(artwork);

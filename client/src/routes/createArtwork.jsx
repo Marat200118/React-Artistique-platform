@@ -14,6 +14,7 @@ const action = async ({ request }) => {
   const formData = await request.formData();
   const data = JSON.parse(formData.get('data'));
   const word = await randomWord();
+  const tagsString = data.tags.join(', ');
 
   const payload = {
     angle: data.angle,
@@ -23,10 +24,20 @@ const action = async ({ request }) => {
     endColor: data.endColor,
     starsAttributes: JSON.stringify(data.starsAttributes),
     name: word,
-    svgBackgroundColor: data.svgBackgroundColor
+    tags: tagsString,
+    svgBackgroundColor: data.svgBackgroundColor,
+    name: word,
+  };
+
+  const showSuccessMessage = () => {
+    const successMessage = document.querySelector('.success-message');
+    const patternControlls = document.querySelector('.pattern-controlls');
+    successMessage.style.display = 'block';
+    patternControlls.style.display = 'none';
   };
 
   console.log("Sending payload:", payload);
+  showSuccessMessage();
   await createArtwork(payload);
   return redirect('/create-artwork');
 }
@@ -46,6 +57,8 @@ const color2 = getRandomColor();
 const CreateArtwork = () => {
 
   const getRandomInRange = (min, max) => Math.random() * (max - min) + min;
+  const [tags, setTags] = useState([]);
+  const [tagInput, setTagInput] = useState('');
   const [svg, setSvg] = useState ({
     strokeWidth: getRandomInRange(0.05, 1),
     lineCount: Math.round(Math.random() * 150),
@@ -120,25 +133,20 @@ const CreateArtwork = () => {
   const { strokeWidth, lineCount, angle, startColor, endColor, theme } = svg;
   const textColor = svg.theme === 'dark' ? '#F7F7F7' : '#1C1D1E';
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setSvg({...svg, [name]: value});
+  const handleTagInputKeyDown = (event) => {
+    if (event.key === 'Enter' && tagInput) {
+      event.preventDefault();
+      setTags([...tags, tagInput.trim()]);
+      setTagInput('');
+    }
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!svg.name.trim()) {
-      alert('Please provide a name for the artwork.');
-      return;
-    }
+  const handleTagInputChange = (event) => {
+    setTagInput(event.target.value);
+  };
 
-    const payload = {
-      ...svg,
-      starsAttributes: JSON.stringify(svg.starsAttributes)
-    };
-    console.log("Sending payload:", payload);
-    await createArtwork(payload);
-    // redirect after creating the artwork
+  const removeTag = (tagToRemove) => {
+    setTags(tags.filter(tag => tag !== tagToRemove));
   };
 
   const { artworks, user } = useLoaderData();
@@ -156,7 +164,11 @@ const CreateArtwork = () => {
           svgBackgroundColor={svg.svgBackgroundColor}
           starsAttributes={starsAttributes}
         />
-        
+
+        <div className='success-message'>
+          <p>Your artwork has been saved successfully!</p>
+        </div>
+
         <div className='pattern-controlls'>
           <Controller
             angle={angle}
@@ -167,11 +179,33 @@ const CreateArtwork = () => {
             onSliderChange={handleSliderChange}
             onColorChange={onColorChange}
           />
+          <div className='tags-container'>
+            <input
+              type="text"
+              value={tagInput}
+              onChange={handleTagInputChange}
+              onKeyDown={handleTagInputKeyDown}
+              placeholder="Add tags (press Enter to add)"
+            />
+            <div className="tags-list">
+              {tags.map((tag, index) => (
+                <span key={index} className="tag tag-add">
+                  {tag} <button onClick={() => removeTag(tag)}>x</button>
+                </span>
+              ))}
+            </div>
+          </div>
 
           <div className='buttons'>
             <button onClick={switchTheme} className='switchThemeButton'>Switch Theme</button>
+            {/* <button onClick={handleSubmit} disabled={!isLogged}>Save Artwork</button> */}
             <Form method="POST">
-              <input type="hidden" name="data" value={JSON.stringify({...svg, starsAttributes})} readOnly={true} />
+              <input type="hidden" name="data" 
+              value={JSON.stringify({
+                ...svg,
+                starsAttributes,
+                tags 
+              })} readOnly={true} />
     
               <button className='saveArtworkButton' type='submit' disabled={!isLogged}>Save Artwork</button>
               {!isLogged && (

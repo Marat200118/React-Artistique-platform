@@ -16,18 +16,18 @@ const ArtworkPreview = ({ artwork }) => {
   const ownerUsername = owner?.data?.attributes?.username;
   const loggedInUser = getAuthData();
   const isOwner = loggedInUser?.user?.id === owner?.data?.id;
-  // console.log('isOwner', isOwner);
+  // console.log("owner", ownerUsername);
 
-  const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this artwork?')) {
-      try {
-        await deleteArtwork(id);
-        window.location.reload(); 
-      } catch (error) {
-        console.error('Failed to delete artwork:', error);
-      }
-    }
-  };
+  // const handleDelete = async (id) => {
+  //   if (window.confirm('Are you sure you want to delete this artwork?')) {
+  //     try {
+  //       await deleteArtwork(id);
+  //       window.location.reload(); 
+  //     } catch (error) {
+  //       console.error('Failed to delete artwork:', error);
+  //     }
+  //   }
+  // };
 
   return (
     <div className="artwork-preview">

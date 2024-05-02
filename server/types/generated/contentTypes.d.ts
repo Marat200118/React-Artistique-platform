@@ -387,6 +387,7 @@ export interface ApiArtworkArtwork extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    tags: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

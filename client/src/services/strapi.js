@@ -28,7 +28,8 @@ const fetchApi = async (
   const res = await fetch(url.toString(), options);
 
   if (!res.ok) {
-    throw new Error(`Error fetching ${url.toString()}`);
+    const errorResponse = await res.text();
+    throw new Error(`Error fetching ${url.toString()}: ${errorResponse}`);
   }
 
   let data = await res.json();
