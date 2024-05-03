@@ -7,8 +7,16 @@ import AuthStatus from "./AuthStatus";
 const Header = () => {
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>
-        <Link to="/">Line Pattern Generator</Link>
+      <div className={styles.nav}>
+        <div className={styles.logo}>
+          <Link to="/">
+            <img src='/stars-logo.png' alt="" className='logo-stars' />
+          </Link>
+        </div>
+        <nav>
+          <Link className={styles.loginButton} to="artwork-collection">Collection</Link>
+          <Link className={styles.loginButton} to="create-artwork">Create</Link>
+        </nav>
       </div>
       <AuthStatus />
     </header>

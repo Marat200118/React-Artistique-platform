@@ -5,7 +5,7 @@ import { fetchApi, unwrapAtributes } from "./strapi";
 const getArtworks = async () => {
   const response = await fetchApi({
     endpoint: "artworks",
-    query: { populate: ["owner"] },
+    query: { populate: ["owner", "owner.picture"] },
   });
   if (!response || !response.data) return [];
   return response.data.map(unwrapAtributes);

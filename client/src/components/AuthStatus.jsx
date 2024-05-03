@@ -28,7 +28,7 @@ const AuthStatus = () => {
             />
           </Link>
           <div>
-            <a href="#" onClick={handleLogout}>Log Out</a>
+            <a href="#" onClick={handleLogout} className="log-out">Log Out</a>
           </div>
         </div>
       ) : (

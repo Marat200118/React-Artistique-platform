@@ -5,6 +5,7 @@ import { useLoaderData, Link, useNavigate } from "react-router-dom";
 import LinePatternGenerator from "../components/LinePatternGenerator";
 import { getMe } from "../services/auth";
 import { deleteArtwork } from "../services/artwork";
+import ArtworkPreview from "../components/ArtworkPreview";
 
 const loader = async ({ params }) => {
   const artwork = await getArtworkById(params.id);
@@ -19,9 +20,9 @@ const ArtworkDetail = () => {
   const ownerUsername = artwork.owner?.data?.attributes?.username;
   const ownerPictureUrl = artwork.owner?.data?.attributes?.picture?.data?.attributes?.url;
   const ownerPicture = ownerPictureUrl ? `${import.meta.env.VITE_STRAPI_URL}${ownerPictureUrl}` : '/default-avatar.jpeg';
-  // const profileUsername = profile.username;
   const tagsArray = artwork.tags ? artwork.tags.split(',').map(tag => tag.trim()) : [];
   const isOwner = profile.id === artwork.owner?.data?.id;
+  const createdAt = new Date(artwork.createdAt).toLocaleDateString();
   const navigate = useNavigate();
   console.log('Artwork:', artwork);
 
@@ -33,16 +34,9 @@ const ArtworkDetail = () => {
     }
   };
 
-  // console.log(isOwner);
-
-  // if (ownerUsername === profileUsername) {
-  //   console.log('You are the owner of this artwork');
-  // } else {
-  //   console.log('You are not the owner of this artwork');
-  // }
   return (
     <>
-      <div>
+      <div className="artwork-datail">
         <h1>{name}</h1>
         <div className="flex-detail">
           <div className="artwork-owner-detail">
@@ -62,10 +56,11 @@ const ArtworkDetail = () => {
                 {
                   artwork.owner.data && 
                   <p>
-                    Owner: <Link to={ownerUsername ? `/user/${artwork.owner.data.id}` : '/'}>{ownerUsername ? ownerUsername : 'Anonymous'}</Link>
+                   <Link to={ownerUsername ? `/user/${artwork.owner.data.id}` : '/'}>{ownerUsername ? ownerUsername : 'Anonymous'}</Link>
                   </p>
                 }
               </div>
+              <p className="created-info">{createdAt}</p>
               {isOwner && (
                 <div className="artwork-actions">
                   <button onClick={() => navigate(`/edit-artwork/${artwork.id}`)}>Edit</button>
@@ -83,6 +78,14 @@ const ArtworkDetail = () => {
             starsAttributes={JSON.parse(starsAttributes)}
             previewMode={false}
           />
+        </div>
+      </div>
+      <div className="other-artworks">
+        <h2>More Artworks by {ownerUsername}</h2>
+        <div className="artworks-collection">
+          {profile.artworks.map((artwork) => (
+            <ArtworkPreview key={artwork.id} artwork={artwork} />
+          ))}
         </div>
       </div>
     </>

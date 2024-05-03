@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLoaderData, Link, Form, redirect } from 'react-router-dom';
 import { getArtworkById, updateArtwork } from '../services/artwork';
 import LinePatternGenerator from '../components/LinePatternGenerator';
-import Controller from '../components/Controller';
+import EditController from '../components/EditController';
 import { getAuthData } from '../services/auth';
 
 const loader = async ({ params }) => {
@@ -83,10 +83,8 @@ const EditArtwork = () => {
               onChange={handleInputChange}
               required
             />
-            <Controller
-              angle={svg.angle}
+            <EditController
               strokeWidth={svg.strokeWidth}
-              lineCount={svg.lineCount}
               startColor={svg.startColor}
               endColor={svg.endColor}
               onSliderChange={handleSliderChange}

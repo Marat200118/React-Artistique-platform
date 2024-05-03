@@ -12,7 +12,7 @@ const loader = async () => {
 
 const Profile = () => {
   const { profile } = useLoaderData();
-  // console.log("Profile:", profile);
+  const createdAt = new Date(profile.createdAt).toLocaleDateString();
 
   
   return (
@@ -23,9 +23,9 @@ const Profile = () => {
           <img src={profile.picture ? import.meta.env.VITE_STRAPI_URL + profile.picture.url : '/default-avatar.jpeg'} alt="Profile avatar" className="large-profile-pic" />
         </div>
         <div className="profile-text">
-          <p>Username: {profile.username}</p>
-          <p>Email: {profile.email}</p>
-          <p>Member since: {profile.createdAt}</p>
+          <p>Username: <span>{profile.username}</span></p>
+          <p>Email: <span>{profile.email}</span></p>
+          <p>Member since: <span>{createdAt}</span></p>
         </div>
       </div>
       <h2>My Artworks</h2>

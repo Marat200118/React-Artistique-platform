@@ -2,36 +2,31 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData, useNavigate} from 'react-router-dom';
 import LinePatternGenerator from './LinePatternGenerator';
-import { deleteArtwork } from '../services/artwork';
 import { getAuthData } from '../services/auth';
 
 
 const ArtworkPreview = ({ artwork }) => {
   const { id, strokeWidth, startColor, endColor, svgBackgroundColor, starsAttributes, name, owner } = artwork;
 
- const parsedStarsAttributes = typeof starsAttributes === 'string' ? JSON.parse(starsAttributes) : starsAttributes;
+  const parsedStarsAttributes = typeof starsAttributes === 'string' ? JSON.parse(starsAttributes) : starsAttributes;
 
   const ownerUsername = owner?.data?.attributes?.username;
   const loggedInUser = getAuthData();
-  const isOwner = loggedInUser?.user?.id === owner?.data?.id;
-  // console.log("owner", ownerUsername);
+  const navigate = useNavigate();
 
-  // const handleDelete = async (id) => {
-  //   if (window.confirm('Are you sure you want to delete this artwork?')) {
-  //     try {
-  //       await deleteArtwork(id);
-  //       window.location.reload(); 
-  //     } catch (error) {
-  //       console.error('Failed to delete artwork:', error);
-  //     }
-  //   }
-  // };
+  const handleDetailNavigation = () => {
+    if (loggedInUser && loggedInUser.user) {
+      navigate(`/artwork/detail/${id}`);
+    } else {
+      navigate('/auth/login');
+    }
+  };
 
   return (
-    <div className="artwork-preview">
-      <Link to={`/artwork/detail/${id}`}>
+    <div className="artwork-preview" onClick={handleDetailNavigation}>
+      {/* <Link to={`/artwork/detail/${id}`}> */}
         <LinePatternGenerator
           strokeWidth={strokeWidth}
           startColor={startColor}
@@ -41,17 +36,19 @@ const ArtworkPreview = ({ artwork }) => {
           previewMode={true}
           id={`artwork-${id}`}
         />
-          {/* {isOwner && (
-          <>
-            <div className='edit-delete-buttons'>
-              <Link to={`/edit-artwork/${artwork.id}`} className='log-in-helper'>Edit</Link>
-              <button onClick={() => handleDelete(artwork.id)} className='delete-button'>Delete</button>
-            </div>
-          </>
-        )} */}     
-      </Link>
-      <p>{name}</p>
-      {ownerUsername && <p>Owner:  <Link to = {ownerUsername ? `/user/${owner.data.id}` : '/'}> {ownerUsername ? ownerUsername : 'Anonymous'}</Link></p>}
+      {/* </Link> */}
+      <div className='artwotk-previe-details'>
+        <div className='first-line'>
+          <p>{name}</p>
+          {ownerUsername && <p>  <Link to = {ownerUsername ? `/user/${owner.data.id}` : '/'}> {ownerUsername ? ownerUsername : 'Anonymous'}</Link></p>}
+        </div>
+        {/* <div className='second-line'>
+          {ownerUsername && <p>  <Link to = {ownerUsername ? `/user/${owner.data.id}` : '/'}> {ownerUsername ? ownerUsername : 'Anonymous'}</Link></p>}
+          <img src={ownerPictureUrl ? import.meta.env.VITE_STRAPI_URL + ownerPictureUrl : '/default-avatar.jpeg'} alt="avatar" className="owner-picture-xxs" />
+          
+        </div> */}
+      </div>
+
     </div>
   );
 };
