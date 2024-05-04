@@ -27,7 +27,6 @@ const ArtworkDetail = () => {
     if (window.confirm('Are you sure you want to delete this artwork?')) {
       await deleteArtwork(artwork.id);
       navigate('/auth/profile');
-      console.log('Artwork deleted');
     }
   };
 
