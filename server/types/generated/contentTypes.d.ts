@@ -371,7 +371,7 @@ export interface ApiArtworkArtwork extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     angle: Attribute.Integer;
@@ -382,9 +382,14 @@ export interface ApiArtworkArtwork extends Schema.CollectionType {
     name: Attribute.String;
     starsAttributes: Attribute.JSON;
     svgBackgroundColor: Attribute.String;
+    owner: Attribute.Relation<
+      'api::artwork.artwork',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    tags: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::artwork.artwork',
       'oneToOne',
@@ -733,7 +738,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -762,6 +766,12 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    artworks: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::artwork.artwork'
+    >;
+    picture: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

@@ -1,7 +1,7 @@
 .header {
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -10,9 +10,28 @@
   flex-direction: row;
   gap: 3rem;
   margin-top: 2rem;
+  align-items: center;
 }
 
 .loginButton {
+  font-weight: 700;
+  color: var(--my-regular-green);
+  text-decoration: underline;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  display: inline-block;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+
+  &:hover {
+    color: black;
+  }
+}
+
+.signupButton {
+  font-weight: 700;
   background-color: #00ab64;
   color: white;
   border: none;
@@ -20,13 +39,36 @@
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
   border-radius: 5px;
+
+  &:hover {
+    background-color: #007846;
+    color: white;
+  }
 }
 
-.logo {
+.logo a {
   font-size: 2rem;
   font-weight: bold;
   color: #00ab64;
+}
+
+.smallProfilePic {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
 }

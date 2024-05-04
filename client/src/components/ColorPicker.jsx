@@ -1,4 +1,3 @@
-// ColorPicker.jsx
 import React from 'react';
 
 const ColorPicker = ({ label, color, onColorChange }) => {

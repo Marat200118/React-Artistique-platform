@@ -1,0 +1,91 @@
+import { getArtworkById } from "../services/artwork";
+import { useLoaderData, Link, useNavigate } from "react-router-dom";
+import LinePatternGenerator from "../components/LinePatternGenerator";
+import { getMe } from "../services/auth";
+import { deleteArtwork } from "../services/artwork";
+import { SlArrowLeft } from "react-icons/sl";
+
+const loader = async ({ params }) => {
+  const artwork = await getArtworkById(params.id);
+  const profile = await getMe();
+  return { artwork, profile };
+}
+
+const ArtworkDetail = () => {
+
+  const { artwork, profile } = useLoaderData();
+  const { strokeWidth, startColor, endColor, svgBackgroundColor, starsAttributes, name } = artwork;
+  const ownerUsername = artwork.owner?.data?.attributes?.username;
+  const ownerPictureUrl = artwork.owner?.data?.attributes?.picture?.data?.attributes?.url;
+  const ownerPicture = ownerPictureUrl ? `${import.meta.env.VITE_STRAPI_URL}${ownerPictureUrl}` : '/default-avatar.jpeg';
+  const tagsArray = artwork.tags ? artwork.tags.split(',').map(tag => tag.trim()) : [];
+  const isOwner = profile.id === artwork.owner?.data?.id;
+  const createdAt = new Date(artwork.createdAt).toLocaleDateString();
+  const navigate = useNavigate();
+
+   const handleDelete = async () => {
+    if (window.confirm('Are you sure you want to delete this artwork?')) {
+      await deleteArtwork(artwork.id);
+      navigate('/auth/profile');
+    }
+  };
+
+  return (
+    <>
+      <div className="artwork-datail">
+        <div className="name-date-back">
+          <div className="back-link">
+            <SlArrowLeft />
+            <Link className='log-in-helper' to="/artwork-collection">Back to Artworks</Link>
+          </div>
+          <h1>{name}</h1>
+          <p className="created-info">{createdAt}</p>
+        </div>
+        <div className="flex-detail">
+          <div className="artwork-owner-detail">
+            <div className="tags">
+              {
+                artwork.tags ? <h3>Tags:</h3> : ''
+              }
+              <div className="tags-ul">
+                {tagsArray.map((tag, index) => (
+                  <div key={index} className="tag">{tag}</div>
+                ))}
+              </div>
+            </div>
+            <div className="avatar-edit-wrapper">
+              <h3>Creator:</h3>
+              <div className="owner-avatar">
+                <img src={ownerPicture} alt="avatar" className="owner-profile-picture" />
+                {
+                  artwork.owner.data && 
+                  <p>
+                   <Link to={ownerUsername ? `/user/${artwork.owner.data.id}` : '/'}>{ownerUsername ? ownerUsername : 'Anonymous'}</Link>
+                  </p>
+                }
+              </div>
+              {isOwner && (
+                <div className="artwork-actions">
+                  <button onClick={() => navigate(`/edit-artwork/${artwork.id}`)}>Edit</button>
+                  <button onClick={handleDelete}>Delete</button>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <LinePatternGenerator
+            strokeWidth={strokeWidth}
+            startColor={startColor}
+            endColor={endColor}
+            svgBackgroundColor={svgBackgroundColor}
+            starsAttributes={JSON.parse(starsAttributes)}
+            previewMode={false}
+          />
+        </div>
+      </div>
+    </>
+  );
+}
+
+ArtworkDetail.loader = loader;
+export default ArtworkDetail;

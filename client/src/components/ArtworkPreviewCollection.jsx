@@ -4,10 +4,11 @@ import { Link, useNavigate} from 'react-router-dom';
 import LinePatternGenerator from './LinePatternGenerator';
 import { getAuthData } from '../services/auth';
 
-const ArtworkPreview = ({ artwork }) => {
+const ArtworkPreviewCollection = ({ artwork }) => {
   const { id, strokeWidth, startColor, endColor, svgBackgroundColor, starsAttributes, name, owner } = artwork;
   const parsedStarsAttributes = typeof starsAttributes === 'string' ? JSON.parse(starsAttributes) : starsAttributes;
   const ownerUsername = owner?.data?.attributes?.username;
+  const ownerPictureUrl = owner?.data?.attributes?.picture?.data?.attributes?.url;
   const loggedInUser = getAuthData();
   const navigate = useNavigate();
 
@@ -30,19 +31,28 @@ const ArtworkPreview = ({ artwork }) => {
           starsAttributes={parsedStarsAttributes}
           previewMode={true}
           id={`artwork-${id}`}
+          onClick={handleDetailNavigation}
         />
       </div>
-      <div className='artwotk-previe-details'>
+      <div className='artwotk-preview-details'>
         <div className='first-line'>
           <p>{name}</p>
-          {ownerUsername && <p>  <Link to = {ownerUsername ? `/user/${owner.data.id}` : '/'}> {ownerUsername ? ownerUsername : 'Anonymous'}</Link></p>}
+          {ownerUsername && (
+            <Link to={`/user/${owner?.data?.id}`}>
+              <img
+                src={ownerPictureUrl ? import.meta.env.VITE_STRAPI_URL + ownerPictureUrl : '/default-avatar.jpeg'}
+                alt="avatar"
+                className="owner-picture-xxs"
+              />
+            </Link>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-ArtworkPreview.propTypes = {
+ArtworkPreviewCollection.propTypes = {
   artwork: PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     strokeWidth: PropTypes.number.isRequired,
@@ -65,4 +75,4 @@ ArtworkPreview.propTypes = {
   }).isRequired,
 };
 
-export default ArtworkPreview;
+export default ArtworkPreviewCollection;
