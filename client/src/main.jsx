@@ -1,5 +1,3 @@
-//main.jsx
-
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -15,7 +13,7 @@ import Register from "./routes/auth/register";
 import User from "./routes/user";
 import ArtworksCollection from "./routes/artworksCollection";
 import EditArtwork from "./routes/editArtwork";
-// import { getAuthData } from './services/auth';
+import Users from "./routes/users";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +54,11 @@ const router = createBrowserRouter([
         path: "/user/:id",
         element: <User />,
         loader: User.loader,
+      },
+      {
+        path: "/users",
+        element: <Users />,
+        loader: Users.loader,
       },
       {
         path: "/artwork-collection",

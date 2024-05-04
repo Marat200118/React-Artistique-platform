@@ -1,6 +1,4 @@
 @import 'open-props/style';
-/* @import 'open-props/normalize'; */
-/* @import 'open-props/buttons'; */
 
 html {
   box-sizing: border-box;
@@ -18,7 +16,6 @@ html {
   font-family: "Exo 2", sans-serif;
   color: #242424;
 }
-
 
 :root {
   line-height: 1.5;
@@ -166,9 +163,7 @@ button {
 }
 
 button:hover {
-  /* border-color: #18d000; */
   background-color: #4a74ff;
-  /* scale: 1.05; */
   color: #f5f5f5;
 }
 
@@ -205,48 +200,6 @@ button:focus-visible {
     background-color: #ff0000;
   }
 }
-
-
-/* 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: #f9f9f9;
-    background-color: #242424;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    color: #f9f9f9;
-  }
-  a:hover {
-    color: #535bf2;
-  }
-  p {
-    color: #f9f9f9;
-  }
-  label {
-    color: #f9f9f9 !important;
-  }
-  button {
-    background-color: #aae853;
-    color: #242424;
-  }
-  .get-started-button a {
-    color: #242424 !important;
-  }
-} */
-
 
 .slider-container {
   margin: 20px 0;
@@ -327,7 +280,6 @@ input[type=text] {
   margin-bottom: 10px;
 }
 
-
 .pattern-controlls-container {
   margin-top: 2rem;
   display: flex;
@@ -403,13 +355,11 @@ input[type=text] {
 
 .log-in-helper, .log-out {
   font-weight: 700;
-  /* background-color: var(--my-persian-green); */
   color: var(--my-dark-blue);
   text-decoration: underline;
   border: none;
   padding: 10px 20px;
   text-align: center;
-  /* text-decoration: none; */
   display: inline-block;
   font-size: 1rem;
   cursor: pointer;
@@ -454,7 +404,12 @@ input[type=text] {
 
 .profile-text span {
   font-weight: 700;
+  color: var(--my-regular-green);
+}
 
+.user-heading span {
+  font-weight: 700;
+  color: var(--my-regular-green);
 }
 
 .owner-profile-picture {
@@ -474,7 +429,8 @@ input[type=text] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
+  gap: 2rem;
 }
 
 .artwork-preview a {
@@ -495,6 +451,7 @@ input[type=text] {
 }
 
 .flex-detail {
+  margin-top: 2rem;
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-around;
@@ -557,7 +514,8 @@ input[type=text] {
 .tags-list {
   display: flex;
   flex-direction: row;
-  margin-top: 2rem;
+  margin-bottom: 4rem;
+  margin-top: 1rem;
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
@@ -617,4 +575,169 @@ input[type=text] {
   cursor: pointer;
   font-weight: 700;
   color: var(--my-blue);
+}
+
+.back-link svg {
+  width: 1rem;
+  height: 1rem;
+
+}
+
+.back-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.name-date-back {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: baseline;
+  gap: 2rem;
+}
+
+.owner-avatar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar-edit-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.users-collection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: self-start;
+  flex-wrap: wrap;
+  gap: 5rem;
+}
+
+.user-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 20%;
+}
+
+.user-card p {
+  font-family: var(--manrope);
+  font-size: 1rem;
+  margin: .3rem;
+}
+
+.user-card a {
+  font-family: var(--manrope);
+  font-weight: 700;
+  color: white;
+}
+
+.user-card h3 {
+  font-family: var(--manrope);
+  font-size: 1.5rem;
+  margin: .5rem;
+}
+
+.profile-pic {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.user-heading {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2rem;
+}
+
+.most-used-tags {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.most-used-tags .tags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1rem;
+  max-width: 40rem;
+}
+
+.most-used-tags .tags .tag {
+  flex: 25%;
+  max-width: 15rem;
+  min-width: 9rem;
+}
+
+.artwotk-preview-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.first-line {
+  border-bottom: 1px solid #242424;
+}
+
+.another-artwork-button {
+  display: none;
+}
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+
+}
+
+.pagination-num {
+  font-size: 2rem;
+
+}
+
+.pagination-button {
+  background-color: var(--my-regular-green);
+  color: white;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 1rem;
+
+  &:hover {
+    background-color: var(--my-light-green);
+    color: white;
+  }
+}
+
+.pagination button svg {
+  width: 1rem;
+  height: 1rem;
 }

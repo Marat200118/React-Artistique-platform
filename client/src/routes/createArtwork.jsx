@@ -1,5 +1,3 @@
-//CreateArtwork.jsx
-
 import React, { useState } from 'react';
 import '../styles/style.css';
 import LinePatternGenerator from '../components/LinePatternGenerator';
@@ -11,6 +9,7 @@ import { getAuthData } from '../services/auth';
 
 
 const action = async ({ request }) => {
+
   const formData = await request.formData();
   const data = JSON.parse(formData.get('data'));
   const word = await randomWord();
@@ -36,16 +35,14 @@ const action = async ({ request }) => {
     patternControlls.style.display = 'none';
   };
 
-  console.log("Sending payload:", payload);
   showSuccessMessage();
   await createArtwork(payload);
-  return redirect('/create-artwork');
+  return redirect('/auth/profile');
 }
 
 const loader = async () => {
   const artworks = await getArtworks(); 
   const user = await getAuthData();
-  console.log("Loaded artworks:", artworks);
   return { artworks, user };
 };
 
@@ -164,9 +161,10 @@ const CreateArtwork = () => {
           svgBackgroundColor={svg.svgBackgroundColor}
           starsAttributes={starsAttributes}
         />
-
-        <div className='success-message'>
-          <p>Your artwork has been saved successfully!</p>
+        <div className='hidden-block'>
+          <div className='success-message'>
+            <p>Your artwork has been saved successfully!</p>
+          </div>
         </div>
 
         <div className='pattern-controlls'>
@@ -198,7 +196,6 @@ const CreateArtwork = () => {
 
           <div className='buttons'>
             <button onClick={switchTheme} className='switchThemeButton'>Switch Theme</button>
-            {/* <button onClick={handleSubmit} disabled={!isLogged}>Save Artwork</button> */}
             <Form method="POST">
               <input type="hidden" name="data" 
               value={JSON.stringify({

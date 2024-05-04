@@ -15,13 +15,11 @@
 
 .loginButton {
   font-weight: 700;
-  /* background-color: var(--my-persian-green); */
-  color: var(--my-dark-blue);
+  color: var(--my-regular-green);
   text-decoration: underline;
   border: none;
   padding: 10px 20px;
   text-align: center;
-  /* text-decoration: none; */
   display: inline-block;
   font-size: 1rem;
   cursor: pointer;

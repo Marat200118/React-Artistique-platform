@@ -1,8 +1,5 @@
-//index.jsx
-
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import GeneratorModule from '../components/GeneratorModule';
 
 const Home = () => {
   return (
@@ -23,7 +20,6 @@ const Home = () => {
           <video src="hero-video-1.mov" alt="Line Pattern Generator" autoPlay loop muted/>
         </div>
       </div>
-      {/* <GeneratorModule /> */}
     </div>
   );
 }

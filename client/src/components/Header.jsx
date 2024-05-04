@@ -1,4 +1,3 @@
-// Header.jsx
 import React from 'react';
 import { Link } from "react-router-dom";
 import styles from './Header.module.css';
@@ -16,6 +15,7 @@ const Header = () => {
         <nav>
           <Link className={styles.loginButton} to="artwork-collection">Collection</Link>
           <Link className={styles.loginButton} to="create-artwork">Create</Link>
+          <Link className={styles.loginButton} to="users">Users</Link>
         </nav>
       </div>
       <AuthStatus />

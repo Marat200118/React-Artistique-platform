@@ -1,5 +1,3 @@
-// root.jsx
-
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import { getAuthData } from "../services/auth";
@@ -7,7 +5,6 @@ import { getMe } from "../services/auth";
 
 const loader = async () => {
   const user = await getAuthData();
-  console.log("Root user:", user);
   if ( !user.jwt) {
     return { user };
   } else {

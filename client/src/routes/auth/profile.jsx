@@ -1,7 +1,5 @@
-//profile.jsx
-
 import React from "react";
-import { useLoaderData, Link } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { getMe } from "../../services/auth";
 import ArtworkPreview from "../../components/ArtworkPreview";
 
@@ -13,7 +11,6 @@ const loader = async () => {
 const Profile = () => {
   const { profile } = useLoaderData();
   const createdAt = new Date(profile.createdAt).toLocaleDateString();
-
   
   return (
     <article>

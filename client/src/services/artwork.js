@@ -1,4 +1,3 @@
-// services/artwork.js
 import { getToken } from "./auth";
 import { fetchApi, unwrapAtributes } from "./strapi";
 
@@ -14,7 +13,7 @@ const getArtworks = async () => {
 const getArtworkById = async (id) => {
   const artwork = await fetchApi({
     endpoint: `artworks/${id}`,
-    query: { populate: ["owner", "owner.picture"] },
+    query: { populate: ["owner", "owner.picture", "owner.artworks"] },
     wrappedByKey: "data",
   });
   return unwrapAtributes(artwork);

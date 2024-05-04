@@ -1,4 +1,3 @@
-// AuthStatus.jsx
 import React from "react";
 import { useRouteLoaderData, Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
@@ -7,9 +6,6 @@ import { logout } from '../services/auth';
 const AuthStatus = () => {
   const { user, profile } = useRouteLoaderData('root');
   const navigate = useNavigate();
-
-
-  // console.log("AuthStatus user:", profile);
 
   const handleLogout = () => {
     logout(); 

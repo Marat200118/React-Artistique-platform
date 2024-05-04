@@ -1,11 +1,4 @@
-/* forms.module.css */
 @import 'style.css';
-/* 
- --my-light-green: #7AE582;
-  --my-persian-green: #25A18E;
-  --my-aqua-green: #9FFFCB;
-  --my-blue: #00A5CF;
-  --my-dark-blue: #004E64; */
 
 .formGroup {
   font-size: var(--font-size-2);

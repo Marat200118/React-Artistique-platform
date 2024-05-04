@@ -14,17 +14,13 @@ const fetchApi = async (
   if (endpoint.startsWith("/")) {
     endpoint = endpoint.slice(1);
   }
-
-  console.log("url", `${import.meta.env.VITE_STRAPI_URL}/api/${endpoint}`);
-
+  // console.log("url", `${import.meta.env.VITE_STRAPI_URL}/api/${endpoint}`);
   const url = new URL(
     `${import.meta.env.VITE_STRAPI_URL}/api/${endpoint}${
       query ? `?${qs.stringify(query, { encode: false })}` : ``
     }`
   );
-
-  console.log("Fetching...", url.toString());
-
+  // console.log("Fetching...", url.toString());
   const res = await fetch(url.toString(), options);
 
   if (!res.ok) {

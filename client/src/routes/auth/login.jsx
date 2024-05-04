@@ -1,8 +1,5 @@
-//login.jsx
-
 import { authenticate } from '../../services/auth';
 import formstyles from '../../styles/forms.module.css';
-import style from './login.module.css';
 import ErrorField from '../../components/ErrorField';
 import { Form, redirect, useLocation, useNavigation, useActionData } from 'react-router-dom';
 
@@ -60,7 +57,7 @@ const Login = () => {
             id="email"
             placeholder="e-mail"
             autoComplete="email"
-            defaultValue="tester@devine.be"
+            defaultValue="marat.samigullin1@gmail.com"
           />
           <ErrorField data={actionData} field="email" />
         </div>
@@ -72,7 +69,7 @@ const Login = () => {
             id="password"
             placeholder="Password"
             autoComplete="current-password"
-            defaultValue="tester"
+            defaultValue="iammarats"
           />
           <ErrorField data={actionData} field="password" />
         </div>

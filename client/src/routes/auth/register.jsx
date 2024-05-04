@@ -1,5 +1,3 @@
-// register.jsx
-
 import {
   Form,
   redirect,
@@ -10,7 +8,6 @@ import {
 import ErrorField from "../../components/ErrorField";
 import { register } from "../../services/auth";
 import formstyles from "../../styles/forms.module.css";
-import style from "./login.module.css";
 
 const action = async ({ request }) => {
   const formData = await request.formData();
@@ -70,9 +67,8 @@ const Register = () => {
             type="text"
             name="username"
             id="username"
-            placeholder="username"
+            placeholder="Your username"
             autoComplete="username"
-            defaultValue="tester-0"
           />
           <ErrorField data={actionData} field="username" />
         </div>
@@ -82,9 +78,8 @@ const Register = () => {
             type="email"
             name="email"
             id="email"
-            placeholder="e-mail"
+            placeholder="Your e-mail"
             autoComplete="email"
-            defaultValue="tester@devine.be"
           />
           <ErrorField data={actionData} field="email" />
         </div>
@@ -94,9 +89,8 @@ const Register = () => {
             type="password"
             name="password"
             id="password"
-            placeholder="password"
+            placeholder="Your password"
             autoComplete="current-password"
-            defaultValue="tester"
           />
           <ErrorField data={actionData} field="password" />
         </div>

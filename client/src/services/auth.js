@@ -1,5 +1,3 @@
-//services/auth.js
-
 const AUTH_DATA = "auth-data-react-platform";
 
 export const authenticate = async (username, password) => {

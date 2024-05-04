@@ -1,11 +1,9 @@
-//artworkDetail.jsx
-
 import { getArtworkById } from "../services/artwork";
 import { useLoaderData, Link, useNavigate } from "react-router-dom";
 import LinePatternGenerator from "../components/LinePatternGenerator";
 import { getMe } from "../services/auth";
 import { deleteArtwork } from "../services/artwork";
-import ArtworkPreview from "../components/ArtworkPreview";
+import { SlArrowLeft } from "react-icons/sl";
 
 const loader = async ({ params }) => {
   const artwork = await getArtworkById(params.id);
@@ -24,7 +22,6 @@ const ArtworkDetail = () => {
   const isOwner = profile.id === artwork.owner?.data?.id;
   const createdAt = new Date(artwork.createdAt).toLocaleDateString();
   const navigate = useNavigate();
-  console.log('Artwork:', artwork);
 
    const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this artwork?')) {
@@ -37,7 +34,14 @@ const ArtworkDetail = () => {
   return (
     <>
       <div className="artwork-datail">
-        <h1>{name}</h1>
+        <div className="name-date-back">
+          <div className="back-link">
+            <SlArrowLeft />
+            <Link className='log-in-helper' to="/artwork-collection">Back to Artworks</Link>
+          </div>
+          <h1>{name}</h1>
+          <p className="created-info">{createdAt}</p>
+        </div>
         <div className="flex-detail">
           <div className="artwork-owner-detail">
             <div className="tags">
@@ -51,6 +55,7 @@ const ArtworkDetail = () => {
               </div>
             </div>
             <div className="avatar-edit-wrapper">
+              <h3>Creator:</h3>
               <div className="owner-avatar">
                 <img src={ownerPicture} alt="avatar" className="owner-profile-picture" />
                 {
@@ -60,7 +65,6 @@ const ArtworkDetail = () => {
                   </p>
                 }
               </div>
-              <p className="created-info">{createdAt}</p>
               {isOwner && (
                 <div className="artwork-actions">
                   <button onClick={() => navigate(`/edit-artwork/${artwork.id}`)}>Edit</button>
@@ -80,18 +84,9 @@ const ArtworkDetail = () => {
           />
         </div>
       </div>
-      <div className="other-artworks">
-        <h2>More Artworks by {ownerUsername}</h2>
-        <div className="artworks-collection">
-          {profile.artworks.map((artwork) => (
-            <ArtworkPreview key={artwork.id} artwork={artwork} />
-          ))}
-        </div>
-      </div>
     </>
   );
 }
 
 ArtworkDetail.loader = loader;
-
 export default ArtworkDetail;
