@@ -2,10 +2,10 @@
 
 The Platform of falling stars pattern generator is a task for WEB 4 course in Devine! This React-based application is designed to let users unleash their creativity by generating unique falling stars patterns, exploring a collection of artworks, and much more. Share your creations with the other users, discover new inspirations.
 
-<img width="700" alt="Screenshot 2024-05-04 at 19 34 59" src="https://github.com/Marat200118/React-Artistique-platform/assets/37581663/16e251b7-5fa1-42df-8de8-ef040381462d">
-<img width="700" alt="Screenshot 2024-05-04 at 19 35 09" src="https://github.com/Marat200118/React-Artistique-platform/assets/37581663/ff6c309a-d00b-4e72-b01a-c01330d457b1">
-<img width="700" alt="Screenshot 2024-05-04 at 19 35 28" src="https://github.com/Marat200118/React-Artistique-platform/assets/37581663/9d7e5978-2454-4f4e-9f81-9c17733d7f6c">
-<img width="700" alt="Screenshot 2024-05-04 at 19 35 46" src="https://github.com/Marat200118/React-Artistique-platform/assets/37581663/24ef595e-db93-45d4-bec2-08d144a62244">
+<img width="500" alt="Screenshot 2024-05-04 at 19 34 59" src="https://github.com/Marat200118/React-Artistique-platform/assets/37581663/16e251b7-5fa1-42df-8de8-ef040381462d">
+<img width="500" alt="Screenshot 2024-05-04 at 19 35 09" src="https://github.com/Marat200118/React-Artistique-platform/assets/37581663/ff6c309a-d00b-4e72-b01a-c01330d457b1">
+<img width="500" alt="Screenshot 2024-05-04 at 19 35 28" src="https://github.com/Marat200118/React-Artistique-platform/assets/37581663/9d7e5978-2454-4f4e-9f81-9c17733d7f6c">
+<img width="500" alt="Screenshot 2024-05-04 at 19 35 46" src="https://github.com/Marat200118/React-Artistique-platform/assets/37581663/24ef595e-db93-45d4-bec2-08d144a62244">
 
 
 ## Key Features
